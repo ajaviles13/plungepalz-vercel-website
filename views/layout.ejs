@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <meta name="description" content="PlungePalz - Never Plunge Alone. The app that every cold plunge enthusiast needs to have. Track, share, and connect with fellow cold plunge enthusiasts.">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="30x30" href="/images/PlungePalz/Logos/PlungePalz_favicon_30x30.png">
+    <link rel="shortcut icon" href="/images/PlungePalz/Logos/PlungePalz_favicon_30x30.png">
+    
+    <link rel="stylesheet" href="/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <a href="/">
+                        <img src="/images/PlungePalz/Logos/PlungePalz_blue-bg_square.png" alt="PlungePalz Logo" class="logo-img">
+                        <div class="nav-logo-text">
+                            <h1>PlungePalz™</h1>
+                            <p class="nav-tagline">Never Plunge Alone</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="nav-menu" id="nav-menu">
+                    <ul class="nav-list">
+                        <li class="nav-item">
+                            <a href="/" class="nav-link <%= page === 'home' ? 'active' : '' %>">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/about" class="nav-link <%= page === 'about' ? 'active' : '' %>">About</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a href="/app" class="nav-link <%= page === 'app' || page === 'plungepoints' || page === 'garmin' ? 'active' : '' %>">
+                                App <i class="fas fa-chevron-down"></i>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/app/plungepoints">PlungePoints</a></li>
+                                <li><a href="/app/connectgarminwatch">Connect Garmin Watch</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="nav-toggle" id="nav-toggle">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <%- body %>
+    </main>
+
+    <!-- Image Modal -->
+    <div id="imageModal" class="image-modal">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <img id="modalImage" class="modal-image" src="" alt="">
+            <div class="modal-info">
+                <h3 id="modalTitle" class="modal-title"></h3>
+                <p id="modalDescription" class="modal-description"></p>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-section footer-main">
+                    <div class="footer-brand">
+                        <img src="/images/PlungePalz/Logos/PlungePalz_blue-bg_square.png" alt="PlungePalz Logo" class="footer-logo">
+                        <div class="footer-brand-text">
+                            <h3 class="footer-brand-title">PlungePalz™</h3>
+                            <p class="footer-brand-tagline">Never Plunge Alone</p>
+                        </div>
+                    </div>
+                    <div class="social-links">
+                        <a href="https://www.instagram.com/plungepalz/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.youtube.com/@PlungePalz" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                        <a href="https://www.facebook.com/share/1AuvVGMGeN/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                        <a href="https://www.linkedin.com/company/plungepalz" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                    <p>The app that every cold plunge enthusiasts needs to have.</p>
+                    
+                    <div class="footer-downloads">
+                        <div class="footer-download-section">
+                            <h4 class="footer-download-title">Download Mobile App</h4>
+                            <div class="footer-main-apps">
+                                <a href="https://apps.apple.com/us/app/plungepalz/id6744040589" target="_blank" rel="noopener noreferrer" class="footer-download-btn ios-btn">
+                                    <i class="fab fa-apple"></i>
+                                    <span>App Store</span>
+                                </a>
+                                <a href="https://play.google.com/store/apps/details?id=com.PlungePalz.app" target="_blank" rel="noopener noreferrer" class="footer-download-btn android-btn">
+                                    <img src="/images/ThirdParty/Logos/GooglePlayLogo_square.png" alt="Google Play" class="footer-btn-logo">
+                                    <span>Play Store</span>
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div class="footer-download-section">
+                            <h4 class="footer-download-title">Download Smartwatch App</h4>
+                            <div class="footer-watch-apps">
+                                <a href="https://apps.garmin.com/apps/34429f28-eaf1-4d1f-8a85-2f3ed34d1221" target="_blank" rel="noopener noreferrer" class="footer-download-btn watch-btn garmin-btn">
+                                    <img src="/images/ThirdParty/Logos/GarminConnectIQ_square.png" alt="Garmin Connect IQ" class="footer-btn-logo">
+                                    <span>Garmin Connect IQ</span>
+                                </a>
+                                <span class="footer-download-btn watch-btn apple-watch-btn disabled">
+                                    <img src="/images/ThirdParty/Logos/AppleWatch_logo.png" alt="Apple Watch" class="footer-btn-logo">
+                                    <span>Apple WatchOS (Coming Soon)</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <div class="contact-info">
+                        <p>Irvine, CA 92620</p>
+                        <p><a href="mailto:Support@PlungePalz.com">Support@PlungePalz.com</a></p>
+                        <p><a href="tel:+19493851379">(949) 385-1379</a></p>
+                        <p>Monday—Friday<br>9am — 5pm (PST)</p>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/about">About</a></li>
+                        <li><a href="/app">App</a></li>
+                        <li><a href="/app/plungepoints">PlungePoints</a></li>
+                        <li><a href="/app/connectgarminwatch">Connect Garmin Watch</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Legal & Support</h4>
+                    <ul class="footer-links">
+                        <li><a href="/privacy-policy">Privacy Policy</a></li>
+                        <li><a href="/terms-of-service">Terms of Service</a></li>
+                        <li><a href="/community-standards">Community Standards</a></li>
+                        <li><a href="/submit-feedback">Submit Feedback</a></li>
+                        <li><a href="/account-data-deletion-request-form">Data Deletion Request</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section footer-subscribe">
+                    <h4>Stay Updated</h4>
+                    <p class="subscribe-description">Get the latest cold plunge tips, app updates, and community news.</p>
+                    <form class="footer-subscribe-form" id="footerSubscribeForm">
+                        <div class="subscribe-input-group">
+                            <input type="text" id="subscribeName" name="name" placeholder="Name (optional)" class="subscribe-input">
+                            <input type="email" id="subscribeEmail" name="email" placeholder="Email address" class="subscribe-input" required>
+                        </div>
+                        <button type="submit" class="subscribe-btn" id="subscribeBtn">
+                            <i class="fas fa-envelope"></i>
+                            Subscribe
+                        </button>
+                    </form>
+                    <p class="subscribe-note">We respect your privacy. Unsubscribe anytime.</p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 PlungePalz LLC. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/js/logger.js"></script>
+    <script src="/js/api-config.js"></script>
+    <script src="/js/main.js"></script>
+    
+    <script>
+    // Footer Subscribe Form Handler
+    document.addEventListener('DOMContentLoaded', function() {
+        const subscribeForm = document.getElementById('footerSubscribeForm');
+        const subscribeBtn = document.getElementById('subscribeBtn');
+        const nameInput = document.getElementById('subscribeName');
+        const emailInput = document.getElementById('subscribeEmail');
+        
+        if (subscribeForm) {
+            subscribeForm.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                const name = nameInput.value.trim();
+                const email = emailInput.value.trim();
+                
+                if (!email) {
+                    Logger.error('Email is required for subscription');
+                    return;
+                }
+                
+                // Show loading state
+                const originalText = subscribeBtn.innerHTML;
+                subscribeBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Subscribing...';
+                subscribeBtn.disabled = true;
+                
+                try {
+                    Logger.debug('Submitting subscription:', { name, email });
+                    
+                    // Prepare payload for API
+                    const payload = {
+                        "email": email,
+                        "name": name || '',
+                        "lead_source": "website"
+                    };
+                    
+                    // Call the subscription API
+                    const response = await fetch('https://wbv224o2f4.execute-api.us-east-2.amazonaws.com/EmailWorkflow_mvp_production/Email_Subscribe', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(payload)
+                    });
+                    
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    
+                    const result = await response.json();
+                    Logger.debug('Subscription API response:', result);
+                    
+                    // Show success state
+                    subscribeBtn.innerHTML = '<i class="fas fa-check"></i> Subscribed!';
+                    subscribeBtn.style.background = 'linear-gradient(135deg, #10b981 0%, #059669 100%)';
+                    
+                    // Clear form
+                    nameInput.value = '';
+                    emailInput.value = '';
+                    
+                    Logger.success('Successfully subscribed:', email);
+                    
+                    // Reset button after 3 seconds
+                    setTimeout(() => {
+                        subscribeBtn.innerHTML = originalText;
+                        subscribeBtn.style.background = '';
+                        subscribeBtn.disabled = false;
+                    }, 3000);
+                    
+                } catch (error) {
+                    Logger.error('Subscription error:', error);
+                    
+                    // Show error state
+                    subscribeBtn.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Try Again';
+                    subscribeBtn.style.background = 'linear-gradient(135deg, #dc2626 0%, #b91c1c 100%)';
+                    
+                    // Reset button after 3 seconds
+                    setTimeout(() => {
+                        subscribeBtn.innerHTML = originalText;
+                        subscribeBtn.style.background = '';
+                        subscribeBtn.disabled = false;
+                    }, 3000);
+                }
+            });
+        }
+    });
+    </script>
+</body>
+</html> 

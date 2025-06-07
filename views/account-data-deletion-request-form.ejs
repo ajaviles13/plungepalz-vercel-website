@@ -1,0 +1,613 @@
+<!-- Account Data Deletion Request Form -->
+<section class="legal-page">
+    <div class="container">
+        <div class="legal-header">
+            <h1 class="legal-title">Account Data Deletion Request</h1>
+            <p class="legal-subtitle">Request complete deletion of your PlungePalz account and all associated data. This action is permanent and cannot be undone.</p>
+            <div class="legal-meta">
+                <span class="last-updated">🔒 Secure Process</span>
+                <span class="reading-time">⏱️ ~3 min to complete</span>
+            </div>
+        </div>
+        
+        <div class="legal-content">
+            <div class="table-of-contents">
+                <h2>⚠️ Important Information</h2>
+                <div class="partner-grid">
+                    <div class="partner-card">
+                        <h4>🗑️ Complete Deletion</h4>
+                        <p>All your account data, posts, and PlungePoints will be permanently removed.</p>
+                    </div>
+                    <div class="partner-card">
+                        <h4>⏰ Processing Time</h4>
+                        <p>Deletion requests are processed within 30 days as required by privacy laws.</p>
+                    </div>
+                    <div class="partner-card">
+                        <h4>🔄 No Recovery</h4>
+                        <p>Once deleted, your data cannot be recovered. This action is irreversible.</p>
+                    </div>
+                    <div class="partner-card">
+                        <h4>📧 Confirmation</h4>
+                        <p>You'll receive email confirmation when the deletion process is complete.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="legal-sections">
+                <section class="legal-section">
+                    <div class="section-header">
+                        <h2>📋 What Will Be Deleted</h2>
+                    </div>
+                    
+                    <div class="feature-list">
+                        <div class="feature-item">
+                            <i class="fas fa-user-circle"></i>
+                            <span><strong>Profile Information:</strong> Name, email, profile picture, and personal details</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-thermometer-half"></i>
+                            <span><strong>Activity Data:</strong> All cold plunge sessions, streaks, and progress tracking</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-coins"></i>
+                            <span><strong>PlungePoints™:</strong> All earned points and reward redemption history</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-images"></i>
+                            <span><strong>Media Content:</strong> Photos, videos, and posts shared in the community</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-users"></i>
+                            <span><strong>Social Data:</strong> Friends, followers, comments, and community interactions</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-trophy"></i>
+                            <span><strong>Achievements:</strong> Challenges completed, badges earned, and leaderboard positions</span>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="legal-section">
+                    <div class="section-header">
+                        <h2>📝 Deletion Request Form</h2>
+                    </div>
+                    
+                    <div class="warning-box">
+                        <p><strong>Please read carefully:</strong> By submitting this form, you are requesting the permanent deletion of your PlungePalz account. This action cannot be undone. If you're experiencing issues with the app, consider contacting our support team first at <a href="mailto:support@plungepalz.com">support@plungepalz.com</a>.</p>
+                    </div>
+                    
+                    <div class="feedback-form-container">
+                        <form class="feedback-form" id="deletionForm">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="name">
+                                        <i class="fas fa-user"></i>
+                                        Full Name <span class="required">*</span>
+                                    </label>
+                                    <input type="text" id="name" name="name" required placeholder="Enter your full name">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="email">
+                                        <i class="fas fa-envelope"></i>
+                                        PlungePalz Account Email <span class="required">*</span>
+                                    </label>
+                                    <input type="email" id="email" name="email" required placeholder="your.account@email.com">
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="username">
+                                        <i class="fas fa-at"></i>
+                                        Username <span class="optional">(if you remember it)</span>
+                                    </label>
+                                    <input type="text" id="username" name="username" placeholder="Your PlungePalz username">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="reason">
+                                        <i class="fas fa-question-circle"></i>
+                                        Reason for Deletion <span class="required">*</span>
+                                    </label>
+                                    <select id="reason" name="deletion_reason" required>
+                                        <option value="">Select a reason</option>
+                                        <option value="privacy-concerns">🔒 Privacy Concerns</option>
+                                        <option value="no-longer-using">📱 No Longer Using App</option>
+                                        <option value="switching-platforms">🔄 Switching to Different Platform</option>
+                                        <option value="data-minimization">🗂️ Data Minimization</option>
+                                        <option value="account-issues">⚠️ Account Issues</option>
+                                        <option value="other">📋 Other</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group full-width">
+                                <label for="message">
+                                    <i class="fas fa-comment-alt"></i>
+                                    Additional Details <span class="required">*</span>
+                                </label>
+                                <textarea id="message" name="deletion_message" rows="6" required placeholder="Please provide any additional details about your deletion request. This helps us improve our service and ensures we process your request correctly."></textarea>
+                                <div class="character-count">
+                                    <span id="charCount">0</span> / 500 characters
+                                </div>
+                            </div>
+
+                            <div class="form-group full-width">
+                                <div class="checkbox-group">
+                                    <input type="checkbox" id="confirmation" name="confirmation" required>
+                                    <label for="confirmation" class="checkbox-label">
+                                        <i class="fas fa-exclamation-triangle"></i>
+                                        I understand that this action is permanent and cannot be undone. All my data will be permanently deleted.
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="form-group full-width">
+                                <div class="checkbox-group">
+                                    <input type="checkbox" id="backup" name="backup">
+                                    <label for="backup" class="checkbox-label">
+                                        <i class="fas fa-download"></i>
+                                        I have backed up any important data I want to keep (optional)
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <div class="form-actions">
+                                <button type="submit" class="submit-btn deletion-btn">
+                                    <i class="fas fa-trash-alt"></i>
+                                    Submit Deletion Request
+                                </button>
+                                <a href="/submit-feedback" class="reset-btn">
+                                    <i class="fas fa-life-ring"></i>
+                                    Contact Support Instead
+                                </a>
+                            </div>
+                        </form>
+                    </div>
+                </section>
+
+                <section class="legal-section">
+                    <div class="section-header">
+                        <h2>🔄 What Happens Next</h2>
+                    </div>
+                    
+                    <div class="compliance-grid">
+                        <div class="compliance-card">
+                            <h3>1️⃣ Request Received</h3>
+                            <p>We'll send you an email confirmation within 24 hours acknowledging your deletion request.</p>
+                        </div>
+                        <div class="compliance-card">
+                            <h3>2️⃣ Identity Verification</h3>
+                            <p>We may contact you to verify your identity and ensure the request is legitimate.</p>
+                        </div>
+                        <div class="compliance-card">
+                            <h3>3️⃣ Processing Period</h3>
+                            <p>Your data will be deleted within 30 days as required by GDPR and CCPA regulations.</p>
+                        </div>
+                        <div class="compliance-card">
+                            <h3>4️⃣ Completion Notice</h3>
+                            <p>You'll receive final confirmation when the deletion process is complete.</p>
+                        </div>
+                    </div>
+
+                    <div class="info-box">
+                        <p><strong>Need Help?</strong> If you're having issues with the app or have questions about your account, our support team is here to help. Contact us at <a href="mailto:support@plungepalz.com">support@plungepalz.com</a> before requesting deletion.</p>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- EmailJS SDK -->
+<script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+<script>
+    // Initialize EmailJS
+    (function(){
+        emailjs.init('DbD2zWpB8l2tVjQWB');
+    })();
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('deletionForm');
+    const messageTextarea = document.getElementById('message');
+    const charCount = document.getElementById('charCount');
+    const maxChars = 500;
+
+    // Character counter with 30-character minimum requirement
+    messageTextarea.addEventListener('input', function() {
+        const currentLength = this.value.length;
+        
+        // Update character count styling based on length and requirements
+        if (currentLength < 30) {
+            charCount.style.color = '#e74c3c';
+            charCount.textContent = `${currentLength} / 500 characters (minimum 30 required)`;
+        } else if (currentLength > maxChars * 0.8) {
+            charCount.style.color = '#f39c12';
+            charCount.textContent = `${currentLength} / 500 characters`;
+        } else if (currentLength > maxChars * 0.9) {
+            charCount.style.color = '#e74c3c';
+            charCount.textContent = `${currentLength} / 500 characters`;
+        } else {
+            charCount.style.color = '#10b981';
+            charCount.textContent = `${currentLength} / 500 characters ✓`;
+        }
+        
+        if (currentLength > maxChars) {
+            this.value = this.value.substring(0, maxChars);
+            charCount.textContent = `${maxChars} / 500 characters (maximum reached)`;
+            charCount.style.color = '#e74c3c';
+        }
+        
+        // Check form validity after character input
+        checkFormValidity();
+    });
+
+    // Form validation function
+    function checkFormValidity() {
+        const name = document.getElementById('name').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const deletionReason = document.getElementById('reason').value;
+        const deletionMessage = document.getElementById('message').value.trim();
+        const confirmation = document.getElementById('confirmation').checked;
+        const submitBtn = form.querySelector('.submit-btn');
+        
+        // Check if all required fields are filled, message has 30+ characters, and confirmation is checked
+        const isValid = name && email && deletionReason && deletionMessage && deletionMessage.length >= 30 && confirmation;
+        
+        if (isValid) {
+            // Enable button
+            submitBtn.disabled = false;
+            submitBtn.classList.remove('disabled');
+            submitBtn.innerHTML = '<i class="fas fa-trash-alt"></i> Submit Deletion Request';
+        } else {
+            // Disable button
+            submitBtn.disabled = true;
+            submitBtn.classList.add('disabled');
+            
+            // Show specific message based on what's missing
+            if (!confirmation) {
+                submitBtn.innerHTML = '<i class="fas fa-lock"></i> Please confirm you understand';
+            } else if (!deletionMessage || deletionMessage.length < 30) {
+                const remaining = Math.max(0, 30 - deletionMessage.length);
+                if (remaining > 0) {
+                    submitBtn.innerHTML = `<i class="fas fa-lock"></i> Message needs ${remaining} more characters`;
+                } else {
+                    submitBtn.innerHTML = '<i class="fas fa-lock"></i> Complete Required Fields';
+                }
+            } else {
+                submitBtn.innerHTML = '<i class="fas fa-lock"></i> Complete Required Fields';
+            }
+        }
+    }
+
+    // Add event listeners to all required fields
+    const requiredFields = ['name', 'email', 'reason', 'message'];
+    requiredFields.forEach(fieldId => {
+        const field = document.getElementById(fieldId);
+        field.addEventListener('input', checkFormValidity);
+        field.addEventListener('change', checkFormValidity);
+    });
+
+    // Add event listener to confirmation checkbox
+    document.getElementById('confirmation').addEventListener('change', checkFormValidity);
+
+    // Initial form validation check
+    checkFormValidity();
+
+    // Form submission with EmailJS and extra confirmation
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const submitBtn = form.querySelector('.submit-btn');
+        const originalText = submitBtn.innerHTML;
+        
+        // Show loading state
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing Request...';
+        submitBtn.disabled = true;
+        
+        // Send form data via EmailJS
+        emailjs.sendForm('service_95l3nsu', 'template_1xx0iyd', form)
+            .then(function(response) {
+                Logger.success('Deletion request submitted successfully:', response);
+                
+                // Show success state
+                submitBtn.innerHTML = '<i class="fas fa-check"></i> Request Submitted';
+                submitBtn.style.background = '#e74c3c';
+                
+                // Show success message
+                const successMessage = document.createElement('div');
+                successMessage.className = 'success-message deletion-success';
+                successMessage.innerHTML = `
+                    <div class="success-content">
+                        <i class="fas fa-check-circle"></i>
+                        <h3>Account Deletion Request Received</h3>
+                        <p>Your account deletion request has been received. Our PlungePalz Tech Team will begin the deletion process within 48 hours and we will follow up via email once it is complete.</p>
+                    </div>
+                `;
+                
+                form.parentNode.insertBefore(successMessage, form);
+                form.style.display = 'none';
+                
+            }, function(error) {
+                Logger.error('Account deletion request error:', error);
+                
+                // Show error state
+                submitBtn.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Error - Please Try Again';
+                submitBtn.style.background = 'linear-gradient(135deg, #dc2626 0%, #b91c1c 100%)';
+                
+                // Show error message to user
+                const errorMessage = document.createElement('div');
+                errorMessage.style.cssText = `
+                    background: #fee2e2;
+                    border: 1px solid #fecaca;
+                    color: #dc2626;
+                    padding: 1rem;
+                    border-radius: 8px;
+                    margin-top: 1rem;
+                    text-align: center;
+                `;
+                errorMessage.innerHTML = '<strong>Error:</strong> There was an error submitting your deletion request. Please try again or contact us directly at support@plungepalz.com';
+                
+                // Insert error message after the form
+                form.parentNode.insertBefore(errorMessage, form.nextSibling);
+                
+                // Remove error message after 10 seconds
+                setTimeout(() => {
+                    if (errorMessage.parentNode) {
+                        errorMessage.parentNode.removeChild(errorMessage);
+                    }
+                }, 10000);
+                
+                // Reset button after 4 seconds
+                setTimeout(() => {
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.style.background = '';
+                    submitBtn.disabled = false;
+                }, 4000);
+            });
+    });
+});
+</script>
+
+<style>
+.deletion-btn {
+    background: linear-gradient(135deg, #e74c3c, #c0392b) !important;
+    box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3) !important;
+}
+
+.deletion-btn:hover:not(:disabled) {
+    box-shadow: 0 6px 20px rgba(231, 76, 60, 0.4) !important;
+}
+
+.deletion-btn.disabled {
+    background: #95a5a6 !important;
+    color: #ffffff !important;
+    cursor: not-allowed !important;
+    opacity: 0.6 !important;
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+.deletion-btn.disabled:hover {
+    background: #95a5a6 !important;
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+.deletion-success {
+    background: linear-gradient(135deg, #e74c3c, #c0392b) !important;
+    box-shadow: 0 10px 30px rgba(231, 76, 60, 0.3) !important;
+    border-radius: 16px !important;
+    padding: 2.5rem !important;
+    margin-bottom: 2rem !important;
+    border: none !important;
+    color: white !important;
+}
+
+.deletion-success .success-content {
+    text-align: center !important;
+}
+
+.deletion-success .success-content i {
+    font-size: 4rem !important;
+    margin-bottom: 1.5rem !important;
+    display: block !important;
+    color: white !important;
+    opacity: 0.9 !important;
+}
+
+.deletion-success .success-content h3 {
+    font-size: 2rem !important;
+    margin-bottom: 1rem !important;
+    font-weight: 700 !important;
+    color: white !important;
+    line-height: 1.2 !important;
+}
+
+.deletion-success .success-content p {
+    font-size: 1.1rem !important;
+    line-height: 1.6 !important;
+    margin-bottom: 1rem !important;
+    color: white !important;
+    opacity: 0.95 !important;
+}
+
+.deletion-success .success-content p:last-child {
+    margin-bottom: 0 !important;
+}
+
+.deletion-success .success-content p strong {
+    font-weight: 600 !important;
+    color: white !important;
+    background: rgba(255, 255, 255, 0.1) !important;
+    padding: 0.25rem 0.5rem !important;
+    border-radius: 4px !important;
+    font-family: 'Courier New', monospace !important;
+}
+
+.deletion-success .success-content p small {
+    font-size: 0.95rem !important;
+    opacity: 0.8 !important;
+    font-style: italic !important;
+}
+
+.reset-btn {
+    text-decoration: none !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: linear-gradient(135deg, var(--blue-primary), #2980b9) !important;
+    color: white !important;
+    padding: 12px 24px !important;
+    border-radius: 8px !important;
+    font-weight: 600 !important;
+    transition: all 0.3s ease !important;
+    box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3) !important;
+    border: none !important;
+    font-size: 1rem !important;
+}
+
+.reset-btn:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 6px 20px rgba(52, 152, 219, 0.4) !important;
+    color: white !important;
+}
+
+.reset-btn i {
+    margin-right: 8px !important;
+}
+
+/* Enhanced dropdown styling */
+#deletionForm select {
+    background: white !important;
+    border: 2px solid #e1e8ed !important;
+    border-radius: 8px !important;
+    padding: 12px 16px !important;
+    font-size: 1rem !important;
+    color: var(--black-primary) !important;
+    transition: all 0.3s ease !important;
+    appearance: none !important;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e") !important;
+    background-repeat: no-repeat !important;
+    background-position: right 12px center !important;
+    background-size: 16px !important;
+    cursor: pointer !important;
+}
+
+#deletionForm select:focus {
+    border-color: var(--blue-primary) !important;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1) !important;
+    outline: none !important;
+}
+
+#deletionForm select:hover {
+    border-color: var(--blue-primary) !important;
+}
+
+#deletionForm select option {
+    padding: 12px !important;
+    font-size: 1rem !important;
+    color: var(--black-primary) !important;
+    background: white !important;
+}
+
+/* Enhanced checkbox styling */
+.checkbox-group {
+    display: flex !important;
+    align-items: flex-start !important;
+    gap: 12px !important;
+    margin: 16px 0 !important;
+    padding: 16px !important;
+    background: #f8f9fa !important;
+    border-radius: 8px !important;
+    border-left: 4px solid var(--blue-primary) !important;
+    transition: all 0.3s ease !important;
+}
+
+.checkbox-group:hover {
+    background: #e3f2fd !important;
+    border-left-color: var(--blue-primary) !important;
+}
+
+.checkbox-group input[type="checkbox"] {
+    width: 20px !important;
+    height: 20px !important;
+    margin: 0 !important;
+    cursor: pointer !important;
+    accent-color: var(--blue-primary) !important;
+    transform: scale(1.2) !important;
+}
+
+.checkbox-group input[type="checkbox"]:checked {
+    accent-color: var(--blue-primary) !important;
+}
+
+.checkbox-label {
+    flex: 1 !important;
+    font-size: 1rem !important;
+    line-height: 1.5 !important;
+    color: var(--black-primary) !important;
+    cursor: pointer !important;
+    margin: 0 !important;
+    display: flex !important;
+    align-items: flex-start !important;
+    gap: 8px !important;
+}
+
+.checkbox-label i {
+    color: var(--blue-primary) !important;
+    font-size: 1.1rem !important;
+    margin-top: 2px !important;
+    flex-shrink: 0 !important;
+}
+
+/* Special styling for required confirmation */
+.checkbox-group input[type="checkbox"]:required + .checkbox-label {
+    font-weight: 600 !important;
+    color: var(--black-primary) !important;
+}
+
+.checkbox-group input[type="checkbox"]:required + .checkbox-label i {
+    color: #e74c3c !important;
+}
+
+.checkbox-group:has(input[type="checkbox"]:required) {
+    border-left-color: #e74c3c !important;
+    background: #fdf2f2 !important;
+}
+
+.checkbox-group:has(input[type="checkbox"]:required):hover {
+    background: #fce4e4 !important;
+}
+
+/* Override character limit for deletion form */
+#deletionForm .character-count {
+    text-align: right;
+    font-size: 0.85rem;
+    color: #666;
+    margin-top: 0.25rem;
+}
+
+/* Form actions spacing */
+.form-actions {
+    display: flex !important;
+    gap: 16px !important;
+    justify-content: center !important;
+    margin-top: 32px !important;
+    flex-wrap: wrap !important;
+}
+
+@media (max-width: 768px) {
+    .form-actions {
+        flex-direction: column !important;
+    }
+    
+    .reset-btn, .deletion-btn {
+        width: 100% !important;
+        justify-content: center !important;
+    }
+}
+</style> 

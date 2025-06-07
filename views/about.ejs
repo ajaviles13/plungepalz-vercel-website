@@ -1,0 +1,483 @@
+<!-- About Hero Section -->
+<section class="hero">
+    <div class="hero-container">
+        <div class="hero-content">
+            <h1 class="hero-title">Founder message</h1>
+            <p class="hero-subtitle">Never Plunge Alone</p>
+            <p class="hero-tagline">Building the world's largest cold plunge community</p>
+        </div>
+        
+        <div class="hero-video">
+            <div class="founder-video">
+                <div class="video-container">
+                    <video controls poster="/images/PlungePalz/Images/AboutVideoThumnail.png" class="founder-video-player" id="founderVideo">
+                        <source src="https://d3b7soun5iwe5o.cloudfront.net/ads-manager/PlungePalz_Ad_1_Intro.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <div class="play-overlay" id="playOverlay">
+                        <img src="/images/PlungePalz/Images/VideoPlayIcon.png" alt="Play" class="play-icon">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Values Section -->
+<section class="values-section">
+    <div class="container">
+        <h2 class="section-title">Our Values</h2>
+        <div class="values-grid">
+            <div class="value-card">
+                <div class="value-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <h3>Community First</h3>
+                <p>We believe in the power of community support. Cold plunging is better when you're not doing it alone.</p>
+            </div>
+            
+            <div class="value-card">
+                <div class="value-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h3>Progress Tracking</h3>
+                <p>We help you track your journey, celebrate milestones, and stay motivated through data-driven insights.</p>
+            </div>
+            
+            <div class="value-card">
+                <div class="value-icon">
+                    <i class="fas fa-trophy"></i>
+                </div>
+                <h3>Achievement</h3>
+                <p>We celebrate your achievements and provide rewards that motivate you to reach new goals.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Story Section -->
+<section class="story-section">
+    <div class="container">
+        <div class="story-content">
+            <h2 class="section-title">Our Story</h2>
+            <div class="story-text">
+                <p>
+                    PlungePalz was born from a simple observation: cold plunging is transformative, but it's also challenging to maintain consistency without support and accountability. Our Founder, a passionate cold plunge enthusiast himself, experienced firsthand how much easier and fun it became cold plunging with others. Strava did it for runners, PlungePalz is for cold plungers.
+                </p>
+                <p>
+                    We've combined the power of social connection with practical tracking tools and gamification elements to create an app that makes cold plunging more engaging and sustainable.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Team Section -->
+<section class="team-section">
+    <div class="container">
+        <h2 class="section-title">Meet the Team</h2>
+        <p class="team-intro">We're a passionate team of cold plunge enthusiasts, developers, and wellness advocates dedicated to building the best cold plunge community platform.</p>
+        
+        <div class="team-grid">
+            <div class="team-member">
+                <div class="member-avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <h3>The PlungePalz Team</h3>
+                <p class="member-role">Founder + Developer</p>
+                <p class="member-bio">A dedicated team of cold plunge enthusiasts and tech professionals working to build the ultimate cold plunge community platform.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section">
+    <div class="container">
+        <div class="cta-content">
+            <h2>Ready to join the Palz Community?</h2>
+            <p>Download PlungePalz today and never plunge alone again!</p>
+            <div class="cta-buttons">
+                <div class="download-section">
+                    <h3 class="download-section-title">Download Mobile App</h3>
+                    <div class="main-apps">
+                        <a href="https://apps.apple.com/us/app/plungepalz/id6744040589" target="_blank" rel="noopener noreferrer" class="download-btn ios-btn">
+                            <i class="fab fa-apple"></i>
+                            <span>App Store</span>
+                        </a>
+                        <a href="https://play.google.com/store/apps/details?id=com.PlungePalz.app" target="_blank" rel="noopener noreferrer" class="download-btn android-btn">
+                            <img src="/images/ThirdParty/Logos/GooglePlayLogo_square.png" alt="Google Play" class="btn-logo">
+                            <span>Play Store</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="download-section">
+                    <h3 class="download-section-title">Download Smartwatch App</h3>
+                    <div class="watch-apps">
+                        <a href="https://apps.garmin.com/apps/34429f28-eaf1-4d1f-8a85-2f3ed34d1221" target="_blank" rel="noopener noreferrer" class="download-btn watch-btn garmin-btn">
+                            <img src="/images/ThirdParty/Logos/GarminConnectIQ_square.png" alt="Garmin Connect IQ" class="btn-logo">
+                            <span>Garmin Connect IQ</span>
+                        </a>
+                        <span class="download-btn watch-btn apple-watch-btn disabled">
+                            <img src="/images/ThirdParty/Logos/AppleWatch_logo.png" alt="Apple Watch" class="btn-logo">
+                            <span>Apple WatchOS (Coming Soon)</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+/* Hero section updates for video layout */
+.hero-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.hero-video {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.founder-video {
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    max-width: 100%;
+    position: relative;
+}
+
+.video-container {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+.founder-video-player {
+    width: 100%;
+    height: auto;
+    display: block;
+    /* Maintain aspect ratio for vertical video */
+    aspect-ratio: 9/16;
+    max-width: 350px;
+    object-fit: cover;
+}
+
+.play-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.play-icon {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+}
+
+.video-container:hover .play-overlay {
+    opacity: 0.8;
+}
+
+.play-overlay.hidden {
+    opacity: 0;
+}
+
+.values-section {
+    padding: 80px 0;
+    background: #f8fafc;
+}
+
+.values-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.value-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 16px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    border: 1px solid #e5e7eb;
+}
+
+.value-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 25px rgba(0, 0, 0, 0.1);
+}
+
+.value-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, var(--blue-primary) 0%, var(--black-primary) 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+}
+
+.value-icon i {
+    font-size: 2rem;
+    color: white;
+}
+
+.value-card h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--black-primary);
+    margin-bottom: 1rem;
+}
+
+.value-card p {
+    color: var(--black-secondary);
+    line-height: 1.6;
+}
+
+.story-section {
+    padding: 80px 0;
+    background: white;
+}
+
+.story-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.story-text p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--black-secondary);
+    margin-bottom: 2rem;
+}
+
+.team-section {
+    padding: 80px 0;
+    background: #f8fafc;
+}
+
+.team-intro {
+    text-align: center;
+    font-size: 1.2rem;
+    color: var(--black-secondary);
+    margin-bottom: 3rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.team-member {
+    background: white;
+    padding: 2rem;
+    border-radius: 16px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e5e7eb;
+}
+
+.member-avatar {
+    width: 100px;
+    height: 100px;
+    background: linear-gradient(135deg, var(--blue-primary) 0%, var(--black-primary) 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+}
+
+.member-avatar i {
+    font-size: 3rem;
+    color: white;
+}
+
+.team-member h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--black-primary);
+    margin-bottom: 0.5rem;
+}
+
+.member-role {
+    color: var(--blue-primary);
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.member-bio {
+    color: var(--black-secondary);
+    line-height: 1.6;
+}
+
+/* CTA Section Updates */
+.cta-content .cta-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    align-items: center;
+    margin-top: 2rem;
+}
+
+.cta-content .download-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.cta-content .download-section-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--white-primary);
+    margin: 0;
+    text-align: center;
+    opacity: 0.9;
+}
+
+.cta-content .main-apps,
+.cta-content .watch-apps {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.cta-content .download-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    background: rgba(255, 255, 255, 0.2);
+    color: var(--white-primary);
+    text-decoration: none;
+    border-radius: 12px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    font-size: 0.9rem;
+}
+
+.cta-content .download-btn:hover {
+    background: var(--white-primary);
+    color: var(--blue-primary);
+    transform: translateY(-2px);
+}
+
+.cta-content .download-btn.android-btn {
+    background: rgba(255, 255, 255, 0.2);
+    color: var(--white-primary);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.cta-content .download-btn.android-btn:hover {
+    background: var(--blue-secondary);
+    color: var(--white-primary);
+    transform: translateY(-2px);
+}
+
+.cta-content .btn-logo {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+.cta-content .download-btn.disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .hero-container {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 2rem;
+    }
+    
+    .founder-video-player {
+        max-width: 280px;
+        aspect-ratio: 9/16;
+    }
+    
+    .values-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .cta-content .main-apps,
+    .cta-content .watch-apps {
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    
+    .cta-content .download-btn {
+        min-width: 200px;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .founder-video-player {
+        max-width: 250px;
+    }
+    
+    .hero-title {
+        font-size: 2rem;
+    }
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const video = document.getElementById('founderVideo');
+    const playOverlay = document.getElementById('playOverlay');
+    
+    if (video && playOverlay) {
+        // Hide play overlay when video starts playing
+        video.addEventListener('play', function() {
+            playOverlay.classList.add('hidden');
+        });
+        
+        // Show play overlay when video is paused or ended
+        video.addEventListener('pause', function() {
+            playOverlay.classList.remove('hidden');
+        });
+        
+        video.addEventListener('ended', function() {
+            playOverlay.classList.remove('hidden');
+        });
+    }
+});
+</script> 

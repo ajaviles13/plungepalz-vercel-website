@@ -1,0 +1,1859 @@
+<!-- PlungePoints Hero Section -->
+<section class="hero">
+    <div class="hero-container">
+        <div class="hero-main">
+            <div class="hero-image">
+                <img src="/images/PlungePalz/Images/PlungePoints_icon.png" alt="PlungePoints Icon" class="plungepoints-hero-image">
+            </div>
+            
+            <div class="hero-content">
+                <h1 class="hero-title">PlungePoints™</h1>
+            </div>
+        </div>
+        
+        <div class="hero-subtext">
+            <p>The chillest currency on planet earth 🌏</p>
+        </div>
+    </div>
+</section>
+
+<!-- How It Works Section -->
+<section class="how-it-works-section">
+    <div class="container">
+        <h2 class="section-title">How PlungePoints™ Work</h2>
+        
+        <div class="steps-grid">
+            <div class="step-card">
+                <div class="step-number">1</div>
+                <div class="step-icon">
+                    <i class="fas fa-snowflake"></i>
+                </div>
+                <h3>Record a Plunge</h3>
+                <p>Record your cold plunge in the app or on a Smartwatch app to earn points based on consistency and device type.</p>
+            </div>
+            
+            <div class="step-card">
+                <div class="step-number">2</div>
+                <div class="step-icon">
+                    <i class="fas fa-trophy"></i>
+                </div>
+                <h3>Complete Challenges</h3>
+                <p>Earn PlungePoints™ for claiming challenges that you complete.</p>
+            </div>
+            
+            <div class="step-card">
+                <div class="step-number">3</div>
+                <div class="step-icon">
+                    <i class="fas fa-gift"></i>
+                </div>
+                <h3>Redeem PlungePoints™</h3>
+                <p>Use your points to unlock rewards (more reward options to come in the future).</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- PlungePoints Calculation Section -->
+<section class="calculation-section">
+    <div class="container">
+        <h2 class="section-title">How PlungePoints™ are Calculated Per Session</h2>
+        
+        <div class="formula-container">
+            <div class="formula-box">
+                <h3>Formula</h3>
+                <p><strong><span class="combined-multiplier">"Combined Multiplier"</span></strong> = 1 + (<span class="device-multiplier">"Device Multiplier – shown below"</span> * <span class="streak-days">"Streak Days"</span>)</p>
+                <p><strong><span class="total-points">Total Points</span></strong> = (<span class="base-points">"Base Points"</span> * (<span class="combined-multiplier">"Combined Multiplier"</span>)) + <span class="photo-option">1 "if photo added – only applicable mobile app"</span></p>
+            </div>
+        </div>
+        
+        <!-- Interactive Calculator Section -->
+        <div class="calculator-container">
+            <h3>Calculate Your PlungePoints™</h3>
+            <div class="calculator-box">
+                <div class="calculator-inputs">
+                    <div class="input-group">
+                        <label for="streakDays"><span class="streak-days">Streak Days</span></label>
+                        <input type="number" id="streakDays" min="1" max="365" value="1" onchange="calculatePoints()">
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="deviceType"><span class="device-multiplier">Device Type</span></label>
+                        <select id="deviceType" onchange="togglePhotoOption(); calculatePoints();">
+                            <option value="mobile">Mobile Phone - 5%</option>
+                            <option value="smartwatch">Smartwatch - 20%</option>
+                        </select>
+                    </div>
+                    
+                    <div class="input-group" id="photoGroup">
+                        <label for="hasPhoto"><span class="photo-option">Did you add a photo BEFORE saving?</span></label>
+                        <select id="hasPhoto" onchange="calculatePoints();">
+                            <option value="no">No</option>
+                            <option value="yes">Yes</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="calculation-result">
+                    <div class="result-formula" id="resultFormula">
+                        2 * (1 + (<span class="device-multiplier">0.05</span> * <span class="streak-days">1</span>)) = <span class="result-points">2.1</span> PlungePoints™
+                    </div>
+                    <div class="result-display">
+                        You will earn <span class="final-points" id="finalPoints">2.1</span> PlungePoints™
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Available Challenges Section -->
+<section class="challenges-section">
+    <div class="container">
+        <h2 class="section-title">Available Challenges</h2>
+        <p class="section-subtitle">Complete challenges to earn PlungePoints™</p>
+        
+        <div class="challenges-grid" id="challengesGrid">
+            <!-- Loading state -->
+            <div class="loading-challenges">
+                <div class="loading-spinner"></div>
+                <p>Loading challenges...</p>
+            </div>
+        </div>
+        
+        <div class="see-all-container">
+            <button class="see-all-btn" onclick="openChallengesModal()">SEE MORE CHALLENGES</button>
+        </div>
+    </div>
+</section>
+
+<!-- Challenges Modal -->
+<div class="challenges-modal" id="challengesModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>All Challenges</h2>
+            <button class="close-btn" onclick="closeChallengesModal()">&times;</button>
+        </div>
+        <div class="modal-body" id="modalChallengesList">
+            <!-- Challenges will be populated here -->
+        </div>
+    </div>
+</div>
+
+<!-- Leaderboard Section -->
+<section class="leaderboard-section">
+    <div class="container">
+        <h2 class="section-title">Top Earners</h2>
+        
+        <div class="leaderboard" id="leaderboard">
+            <!-- Loading state -->
+            <div class="loading-leaderboard">
+                <div class="loading-spinner"></div>
+                <p>Loading top earners...</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section">
+    <div class="container">
+        <div class="cta-content">
+            <h2>Start earning PlungePoints™ today!</h2>
+            <p>Download the app and begin your rewarding cold plunge journey.</p>
+            <div class="cta-buttons">
+                <div class="download-section">
+                    <h3 class="download-section-title">Download Mobile App</h3>
+                    <div class="main-apps">
+                        <a href="https://apps.apple.com/us/app/plungepalz/id6744040589" target="_blank" rel="noopener noreferrer" class="download-btn ios-btn">
+                            <i class="fab fa-apple"></i>
+                            <span>App Store</span>
+                        </a>
+                        <a href="https://play.google.com/store/apps/details?id=com.PlungePalz.app" target="_blank" rel="noopener noreferrer" class="download-btn android-btn">
+                            <img src="/images/ThirdParty/Logos/GooglePlayLogo_square.png" alt="Google Play" class="btn-logo">
+                            <span>Play Store</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="download-section">
+                    <h3 class="download-section-title">Download Smartwatch App</h3>
+                    <div class="watch-apps">
+                        <a href="https://apps.garmin.com/apps/34429f28-eaf1-4d1f-8a85-2f3ed34d1221" target="_blank" rel="noopener noreferrer" class="download-btn watch-btn garmin-btn">
+                            <img src="/images/ThirdParty/Logos/GarminConnectIQ_square.png" alt="Garmin Connect IQ" class="btn-logo">
+                            <span>Garmin Connect IQ</span>
+                        </a>
+                        <span class="download-btn watch-btn apple-watch-btn disabled">
+                            <img src="/images/ThirdParty/Logos/AppleWatch_logo.png" alt="Apple Watch" class="btn-logo">
+                            <span>Apple WatchOS (Coming Soon)</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+.hero {
+    padding: 10px 0;
+}
+
+.hero-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.hero-main {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.hero-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}
+
+.plungepoints-hero-image {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+}
+
+.hero-content {
+    display: flex;
+    align-items: center;
+}
+
+.hero-title {
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--white-primary);
+    margin: 0;
+}
+
+.hero-subtext {
+    text-align: center;
+    margin-top: 0;
+}
+
+.hero-subtext p {
+    font-size: 1.2rem;
+    color: var(--white-primary);
+    margin: 0;
+    opacity: 0.9;
+}
+
+.how-it-works-section {
+    padding: 80px 0;
+    background: white;
+}
+
+.steps-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 3rem;
+    margin-top: 4rem;
+}
+
+.step-card {
+    text-align: center;
+    position: relative;
+    padding: 2rem;
+}
+
+.step-number {
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1.2rem;
+}
+
+.step-icon {
+    width: 100px;
+    height: 100px;
+    background: #f8fafc;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 2rem auto 1.5rem;
+    border: 3px solid #e5e7eb;
+}
+
+.step-icon i {
+    font-size: 2.5rem;
+    color: #667eea;
+}
+
+.step-card h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 1rem;
+}
+
+.step-card p {
+    color: #6b7280;
+    line-height: 1.6;
+}
+
+.calculation-section {
+    padding: 80px 0;
+    background: #f8fafc;
+}
+
+.formula-container {
+    margin-bottom: 4rem;
+}
+
+.formula-box {
+    background: white;
+    padding: 2rem;
+    border-radius: 16px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    border: 1px solid #e5e7eb;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.formula-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 25px rgba(0, 0, 0, 0.1);
+}
+
+.formula-box h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 1rem;
+}
+
+.formula-box p {
+    color: #6b7280;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+/* Variable Color Styling */
+.combined-multiplier {
+    color: #374151;
+    font-weight: 700;
+    background: rgba(55, 65, 81, 0.1);
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+.streak-days {
+    color: #9333ea;
+    font-weight: 700;
+    background: rgba(147, 51, 234, 0.1);
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+.device-multiplier {
+    color: #2563eb;
+    font-weight: 700;
+    background: rgba(37, 99, 235, 0.1);
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+.photo-option {
+    color: #16a34a;
+    font-weight: 700;
+    background: rgba(22, 163, 74, 0.1);
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+.base-points {
+    color: #dc2626;
+    font-weight: 700;
+    background: rgba(220, 38, 38, 0.1);
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+.total-points {
+    color: #f97316;
+    font-weight: 700;
+    background: rgba(249, 115, 22, 0.1);
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+/* Calculator Styling */
+.calculator-container {
+    margin-bottom: 4rem;
+}
+
+.calculator-container h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.calculator-box {
+    background: white;
+    padding: 2rem;
+    border-radius: 16px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e5e7eb;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.calculator-inputs {
+    display: grid;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.input-group label {
+    font-weight: 600;
+    color: #1f2937;
+    font-size: 0.9rem;
+}
+
+.input-group input,
+.input-group select {
+    padding: 0.75rem;
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+    color: #1f2937;
+}
+
+.input-group select option {
+    color: #1f2937;
+    background-color: white;
+}
+
+.input-group input:focus,
+.input-group select:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.calculation-result {
+    background: #f8fafc;
+    padding: 1.5rem;
+    border-radius: 12px;
+    border: 2px solid #e5e7eb;
+}
+
+.result-formula {
+    font-family: 'Courier New', monospace;
+    font-size: 1rem;
+    color: #6b7280;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.result-display {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1f2937;
+    text-align: center;
+}
+
+.final-points {
+    color: #f97316;
+    font-size: 2rem;
+}
+
+.result-points {
+    color: #f97316;
+    font-weight: 700;
+}
+
+.challenges-section {
+    padding: 80px 0;
+    background: white;
+}
+
+.challenges-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.challenge-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 16px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    border: 1px solid #e5e7eb;
+    position: relative;
+}
+
+.challenge-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 25px rgba(0, 0, 0, 0.1);
+}
+
+.challenge-image {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 1.5rem;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.challenge-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.challenge-card h3 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 0.5rem;
+}
+
+.challenge-points {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #f97316;
+    margin-bottom: 1rem;
+}
+
+.challenge-description {
+    color: #6b7280;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+}
+
+.challenge-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #e5e7eb;
+}
+
+.challenge-type {
+    font-size: 0.8rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 12px;
+    font-weight: 600;
+    text-transform: capitalize;
+}
+
+.challenge-type.milestone {
+    background: #dbeafe;
+    color: #1e40af;
+}
+
+.challenge-type.streak {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.challenge-type.duration {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.challenge-type.temperature {
+    background: #e0e7ff;
+    color: #3730a3;
+}
+
+.challenge-type.personal_improvement {
+    background: #fce7f3;
+    color: #be185d;
+}
+
+.challenge-type.frequency {
+    background: #f3e8ff;
+    color: #7c2d12;
+}
+
+.challenge-type.schedule {
+    background: #ecfdf5;
+    color: #065f46;
+}
+
+.challenge-type.consistency {
+    background: #fef2f2;
+    color: #991b1b;
+}
+
+.challenge-type.dynamic {
+    background: #f0f9ff;
+    color: #0c4a6e;
+}
+
+.challenge-type.social {
+    background: #fff7ed;
+    color: #9a3412;
+}
+
+.challenge-type.app_feature {
+    background: #f5f3ff;
+    color: #6b21a8;
+}
+
+.challenge-difficulty {
+    font-size: 0.8rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 12px;
+    font-weight: 600;
+}
+
+.challenge-difficulty.Easy {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.challenge-difficulty.Medium {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.challenge-difficulty.Hard {
+    background: #fecaca;
+    color: #991b1b;
+}
+
+.loading-challenges {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 3rem;
+}
+
+.loading-leaderboard {
+    text-align: center;
+    padding: 3rem;
+}
+
+.loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #f3f4f6;
+    border-top: 4px solid #667eea;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 1rem;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.error-message {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 3rem;
+    color: #dc2626;
+}
+
+.leaderboard-section {
+    padding: 80px 0;
+    background: #f8fafc;
+}
+
+.leaderboard {
+    max-width: 600px;
+    margin: 3rem auto 0;
+}
+
+.leaderboard-item {
+    display: flex;
+    align-items: center;
+    background: white;
+    padding: 1.5rem;
+    border-radius: 12px;
+    margin-bottom: 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e5e7eb;
+}
+
+.rank {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    margin-right: 1rem;
+    flex-shrink: 0;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    flex: 1;
+}
+
+.avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 1rem;
+    overflow: hidden;
+    flex-shrink: 0;
+    border: 2px solid #e5e7eb;
+}
+
+.avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.avatar-placeholder {
+    width: 50px;
+    height: 50px;
+    background: #f3f4f6;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 1rem;
+    flex-shrink: 0;
+    border: 2px solid #e5e7eb;
+}
+
+.avatar-placeholder i {
+    color: #6b7280;
+    font-size: 1.5rem;
+}
+
+.username-container {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.username {
+    font-weight: 600;
+    color: #1f2937;
+    line-height: 1.2;
+    display: flex;
+    align-items: center;
+}
+
+.verified-badge {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.verified-badge img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+}
+
+.points {
+    font-weight: 700;
+    color: #667eea;
+    font-size: 1.1rem;
+}
+
+.error-leaderboard {
+    text-align: center;
+    padding: 3rem;
+    color: #dc2626;
+}
+
+.cta-section {
+    padding: 80px 0;
+    background: white;
+}
+
+.cta-content {
+    text-align: center;
+}
+
+.cta-content h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 1rem;
+}
+
+.cta-content p {
+    font-size: 1.2rem;
+    color: #6b7280;
+    margin-bottom: 2rem;
+}
+
+/* CTA Section Updates to match About page */
+.cta-content .cta-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    align-items: center;
+    margin-top: 2rem;
+}
+
+.cta-content .download-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.cta-content .download-section-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #1f2937;
+    margin: 0;
+    text-align: center;
+    opacity: 0.8;
+}
+
+.cta-content .main-apps,
+.cta-content .watch-apps {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.cta-content .download-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    text-decoration: none;
+    border-radius: 12px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(102, 126, 234, 0.3);
+    font-size: 0.9rem;
+}
+
+.cta-content .download-btn:hover {
+    background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+}
+
+.cta-content .download-btn.android-btn {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: 1px solid rgba(102, 126, 234, 0.3);
+}
+
+.cta-content .download-btn.android-btn:hover {
+    background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+}
+
+.cta-content .btn-logo {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+.cta-content .download-btn.disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.see-all-container {
+    text-align: center;
+    margin-top: 3rem;
+}
+
+.see-all-btn {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.see-all-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+}
+
+.challenges-modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+}
+
+.modal-content {
+    background-color: white;
+    margin: 2% auto;
+    border-radius: 16px;
+    width: 90%;
+    max-width: 1200px;
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem;
+    border-bottom: 1px solid #e5e7eb;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-radius: 16px 16px 0 0;
+}
+
+.modal-header h2 {
+    margin: 0;
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 2.5rem;
+    color: white;
+    cursor: pointer;
+    padding: 0;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.close-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: rotate(90deg);
+}
+
+.modal-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 2rem;
+}
+
+.modal-challenge-item {
+    display: flex;
+    align-items: center;
+    padding: 1.5rem;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    margin-bottom: 1rem;
+    background: white;
+    transition: all 0.3s ease;
+}
+
+.modal-challenge-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+.modal-challenge-image {
+    width: 60px;
+    height: 60px;
+    margin-right: 1.5rem;
+    border-radius: 8px;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.modal-challenge-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.modal-challenge-info {
+    flex: 1;
+}
+
+.modal-challenge-name {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 0.5rem;
+}
+
+.modal-challenge-description {
+    color: #6b7280;
+    line-height: 1.5;
+    margin-bottom: 0.75rem;
+}
+
+.modal-challenge-meta {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.modal-challenge-points {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #f97316;
+}
+
+.modal-challenge-type {
+    font-size: 0.8rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 12px;
+    font-weight: 600;
+    text-transform: capitalize;
+}
+
+.modal-challenge-difficulty {
+    font-size: 0.8rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 12px;
+    font-weight: 600;
+}
+
+/* Apply existing challenge type and difficulty colors */
+.modal-challenge-type.milestone { background: #dbeafe; color: #1e40af; }
+.modal-challenge-type.streak { background: #dcfce7; color: #166534; }
+.modal-challenge-type.duration { background: #fef3c7; color: #92400e; }
+.modal-challenge-type.temperature { background: #e0e7ff; color: #3730a3; }
+.modal-challenge-type.personal_improvement { background: #fce7f3; color: #be185d; }
+.modal-challenge-type.frequency { background: #f3e8ff; color: #7c2d12; }
+.modal-challenge-type.schedule { background: #ecfdf5; color: #065f46; }
+.modal-challenge-type.consistency { background: #fef2f2; color: #991b1b; }
+.modal-challenge-type.dynamic { background: #f0f9ff; color: #0c4a6e; }
+.modal-challenge-type.social { background: #fff7ed; color: #9a3412; }
+.modal-challenge-type.app_feature { background: #f5f3ff; color: #6b21a8; }
+
+.modal-challenge-difficulty.Easy { background: #dcfce7; color: #166534; }
+.modal-challenge-difficulty.Medium { background: #fef3c7; color: #92400e; }
+.modal-challenge-difficulty.Hard { background: #fecaca; color: #991b1b; }
+
+@media (max-width: 768px) {
+    .hero {
+        padding: 5px 0;
+    }
+    
+    .hero-container {
+        gap: 0.25rem;
+        padding: 0 15px;
+    }
+    
+    .hero-main {
+        gap: 0.75rem;
+    }
+    
+    .plungepoints-hero-image {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .hero-title {
+        font-size: 1.8rem;
+    }
+    
+    .hero-subtext p {
+        font-size: 1rem;
+    }
+    
+    .steps-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .modal-content {
+        width: 95%;
+        height: 95vh;
+        margin: 2.5% auto;
+    }
+    
+    .modal-header {
+        padding: 1.5rem;
+    }
+    
+    .modal-header h2 {
+        font-size: 1.5rem;
+    }
+    
+    .modal-body {
+        padding: 1rem;
+    }
+    
+    .modal-challenge-item {
+        flex-direction: column;
+        text-align: center;
+        padding: 1rem;
+    }
+    
+    .modal-challenge-image {
+        margin-right: 0;
+        margin-bottom: 1rem;
+    }
+    
+    .modal-challenge-meta {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    
+    .cta-content .main-apps,
+    .cta-content .watch-apps {
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    
+    .cta-content .download-btn {
+        min-width: 200px;
+        justify-content: center;
+    }
+}
+</style>
+
+<script>
+function togglePhotoOption() {
+    const deviceType = document.getElementById('deviceType').value;
+    const photoGroup = document.getElementById('photoGroup');
+    
+    if (deviceType === 'mobile') {
+        photoGroup.style.display = 'flex';
+    } else {
+        photoGroup.style.display = 'none';
+    }
+}
+
+function calculatePoints() {
+    const streakDays = parseInt(document.getElementById('streakDays').value) || 1;
+    const deviceType = document.getElementById('deviceType').value;
+    const hasPhoto = document.getElementById('hasPhoto').value;
+    
+    let deviceMultiplier = 0;
+    let deviceMultiplierText = '';
+    
+    if (deviceType === 'mobile') {
+        deviceMultiplier = 0.05;
+        deviceMultiplierText = '0.05';
+    } else if (deviceType === 'smartwatch') {
+        deviceMultiplier = 0.20;
+        deviceMultiplierText = '0.20';
+    }
+    
+    // Base calculation: 2 * (1 + (deviceMultiplier * streakDays))
+    const basePoints = 2 * (1 + (deviceMultiplier * streakDays));
+    
+    // Add photo bonus if applicable
+    let finalPoints = basePoints;
+    let formulaText = '';
+    
+    if (deviceType === 'mobile' && hasPhoto === 'yes') {
+        finalPoints = basePoints + 1;
+        formulaText = `<span class="base-points">2</span> * (1 + (<span class="device-multiplier">${deviceMultiplierText}</span> * <span class="streak-days">${streakDays}</span>)) <span class="photo-option">+ 1</span> = <span class="result-points">${finalPoints.toFixed(1)}</span> PlungePoints™`;
+    } else {
+        formulaText = `<span class="base-points">2</span> * (1 + (<span class="device-multiplier">${deviceMultiplierText}</span> * <span class="streak-days">${streakDays}</span>)) = <span class="result-points">${finalPoints.toFixed(1)}</span> PlungePoints™`;
+    }
+    
+    // Update the display
+    document.getElementById('resultFormula').innerHTML = formulaText;
+    document.getElementById('finalPoints').textContent = finalPoints.toFixed(1);
+}
+
+// Initialize calculator on page load
+document.addEventListener('DOMContentLoaded', function() {
+    togglePhotoOption();
+    calculatePoints();
+    loadChallenges();
+    loadLeaderboard();
+});
+
+function loadChallenges() {
+    const challengesGrid = document.getElementById('challengesGrid');
+    
+    // Static challenge data
+    const challenges = [
+        {
+            "id": "C001",
+            "challenge_description": "Complete your first cold plunge.",
+            "challenge_name": "First Plunge",
+            "challenge_type": "milestone",
+            "difficulty": "Easy",
+            "plungePoints": 5,
+            "trophyImageURL": "https://d3b7soun5iwe5o.cloudfront.net/trophies/03-19-2025/C001.png"
+        },
+        {
+            "id": "C002",
+            "challenge_description": "Set your first Streak Goal.",
+            "challenge_name": "Streak Setter ",
+            "challenge_type": "app_feature",
+            "difficulty": "Easy",
+            "plungePoints": 5,
+            "trophyImageURL": "https://d3b7soun5iwe5o.cloudfront.net/trophies/03-19-2025/C002.png"
+        },
+        {
+            "id": "C003",
+            "challenge_description": "Complete 10 cold plunges where each cold plunge session is longer than 1 minute.",
+            "challenge_name": "10 Lifetime Plunges",
+            "challenge_type": "milestone",
+            "difficulty": "Easy",
+            "plungePoints": 10,
+            "trophyImageURL": "https://d3b7soun5iwe5o.cloudfront.net/trophies/03-19-2025/C003.png"
+        }
+    ];
+    
+    Logger.debug('Loading first 3 challenges:', challenges.length, 'challenges');
+    
+    // Clear loading state
+    challengesGrid.innerHTML = '';
+    
+    // Display only first 3 challenges
+    challenges.forEach(challenge => {
+        const challengeCard = createChallengeCard(challenge);
+        challengesGrid.appendChild(challengeCard);
+    });
+}
+
+function createChallengeCard(challenge) {
+    const card = document.createElement('div');
+    card.className = 'challenge-card';
+    
+    card.innerHTML = `
+        <div class="challenge-image">
+            <img src="${challenge.trophyImageURL}" alt="${challenge.challenge_name}" onerror="this.style.display='none'">
+        </div>
+        <h3>${challenge.challenge_name}</h3>
+        <p class="challenge-points">${challenge.plungePoints} Points</p>
+        <p class="challenge-description">${challenge.challenge_description}</p>
+        <div class="challenge-meta">
+            <span class="challenge-type ${challenge.challenge_type}">${challenge.challenge_type.replace('_', ' ')}</span>
+            <span class="challenge-difficulty ${challenge.difficulty}">${challenge.difficulty}</span>
+        </div>
+    `;
+    
+    return card;
+}
+
+function openChallengesModal() {
+    const modal = document.getElementById('challengesModal');
+    const modalBody = document.getElementById('modalChallengesList');
+    
+    // Get the same challenges data
+    const challenges = getChallengesData();
+    
+    // Clear modal body
+    modalBody.innerHTML = '';
+    
+    // Sort challenges by ID to ensure C001, C002, etc. order
+    challenges.sort((a, b) => a.id.localeCompare(b.id));
+    
+    // Create modal challenge items
+    challenges.forEach(challenge => {
+        const challengeItem = createModalChallengeItem(challenge);
+        modalBody.appendChild(challengeItem);
+    });
+    
+    // Show modal
+    modal.style.display = 'block';
+    document.body.style.overflow = 'hidden'; // Prevent background scrolling
+}
+
+function closeChallengesModal() {
+    const modal = document.getElementById('challengesModal');
+    modal.style.display = 'none';
+    document.body.style.overflow = 'auto'; // Restore background scrolling
+}
+
+function createModalChallengeItem(challenge) {
+    const item = document.createElement('div');
+    item.className = 'modal-challenge-item';
+    
+    item.innerHTML = `
+        <div class="modal-challenge-image">
+            <img src="${challenge.trophyImageURL}" alt="${challenge.challenge_name}" onerror="this.style.display='none'">
+        </div>
+        <div class="modal-challenge-info">
+            <div class="modal-challenge-name">${challenge.challenge_name}</div>
+            <div class="modal-challenge-description">${challenge.challenge_description}</div>
+            <div class="modal-challenge-meta">
+                <span class="modal-challenge-points">${challenge.plungePoints} Points</span>
+                <span class="modal-challenge-type ${challenge.challenge_type}">${challenge.challenge_type.replace('_', ' ')}</span>
+                <span class="modal-challenge-difficulty ${challenge.difficulty}">${challenge.difficulty}</span>
+            </div>
+        </div>
+    `;
+    
+    return item;
+}
+
+function getChallengesData() {
+    // Return the same static challenge data
+    return [
+        {
+            "id": "C001",
+            "challenge_description": "Complete your first cold plunge.",
+            "challenge_name": "First Plunge",
+            "challenge_type": "milestone",
+            "difficulty": "Easy",
+            "plungePoints": 5,
+            "trophyImageURL": "https://d3b7soun5iwe5o.cloudfront.net/trophies/03-19-2025/C001.png"
+        },
+        {
+            "id": "C002",
+            "challenge_description": "Set your first Streak Goal.",
+            "challenge_name": "Streak Setter ",
+            "challenge_type": "app_feature",
+            "difficulty": "Easy",
+            "plungePoints": 5,
+            "trophyImageURL": "https://d3b7soun5iwe5o.cloudfront.net/trophies/03-19-2025/C002.png"
+        },
+        {
+            "id": "C003",
+            "challenge_description": "Complete 10 cold plunges where each cold plunge session is longer than 1 minute.",
+            "challenge_name": "10 Lifetime Plunges",
+            "challenge_type": "milestone",
+            "difficulty": "Easy",
+            "plungePoints": 10,
+            "trophyImageURL": "https://d3b7soun5iwe5o.cloudfront.net/trophies/03-19-2025/C003.png"
+        },
+        {
+            "id": "C004",
+            "challenge_description": "Complete 25 cold plunges where each cold plunge session is longer than 1 minute.",
+            "challenge_name": "25 Lifetime Plunges",
+            "challenge_type": "milestone",
+            "difficulty": "Easy",
+            "plungePoints": 25,
+            "trophyImageURL": "https://d3b7soun5iwe5o.cloudfront.net/trophies/03-19-2025/C004.png"
+        },
+        {
+            "id": "C005",
+            "challenge_description": "Complete 50 cold plunges where each cold plunge session is longer than 1 minute.",
+            "challenge_name": "50 Lifetime Plunges",
+            "challenge_type": "milestone",
+            "difficulty": "Medium",
+            "plungePoints": 50,
+            "trophyImageURL": "https://d3b7soun5iwe5o.cloudfront.net/trophies/03-19-2025/C005.png"
+        },
+        {
+            "id": "C006",
+            "challenge_description": "Complete 100 cold plunges where each cold plunge session is longer than 1 minute.",
+            "challenge_name": "100 Lifetime Plunges",
+            "challenge_type": "milestone",
+            "difficulty": "Medium",
+            "plungePoints": 100,
+            "trophyImageURL": "https://d3b7soun5iwe5o.cloudfront.net/trophies/03-19-2025/C006.png"
+        },
+        {
+            "id": "C007",
+            "challenge_description": "Complete 200 cold plunges where each cold plunge session is longer than 1 minute.",
+            "challenge_name": "200 Lifetime Plunges",
+            "challenge_type": "milestone",
+            "difficulty": "Medium",
+            "plungePoints": 200,
+            "trophyImageURL": "https://d3b7soun5iwe5o.cloudfront.net/trophies/03-19-2025/C007.png"
+        },
+        {
+            "id": "C008",
+            "challenge_description": "Complete 500 cold plunges where each cold plunge session is longer than 1 minute.",
+            "challenge_name": "500 Lifetime Plunges",
+            "challenge_type": "milestone",
+            "difficulty": "Hard",
+            "plungePoints": 500,
+            "trophyImageURL": "https://d3b7soun5iwe5o.cloudfront.net/trophies/03-19-2025/C008.png"
+        },
+        {
+            "id": "C009",
+            "challenge_description": "Complete 1000 cold plunges where each cold plunge session is longer than 1 minute.",
+            "challenge_name": "1000 Lifetime Plunges",
+            "challenge_type": "milestone",
+            "difficulty": "Hard",
+            "plungePoints": 1000,
+            "trophyImageURL": "https://d3b7soun5iwe5o.cloudfront.net/trophies/03-19-2025/C009.png"
+        },
+        {
+            "id": "C010",
+            "challenge_description": "Hit a 3 day cold plunge streak.",
+            "challenge_name": "3-Day Streak",
+            "challenge_type": "streak",
+            "difficulty": "Easy",
+            "plungePoints": 10,
+            "trophyImageURL": "https://d3b7soun5iwe5o.cloudfront.net/trophies/03-19-2025/C010.png"
+        },
+        {
+            "id": "C011",
+            "challenge_description": "Hit a 7 day cold plunge streak.",
+            "challenge_name": "7-Day Streak",
+            "challenge_type": "streak",
+            "difficulty": "Easy",
+            "plungePoints": 20,
+            "trophyImageURL": "https://d3b7soun5iwe5o.cloudfront.net/trophies/03-19-2025/C011.png"
+        },
+        {
+            "id": "C012",
+            "challenge_description": "Hit a 14 day cold plunge streak.",
+            "challenge_name": "14-Day Streak",
+            "challenge_type": "streak",
+            "difficulty": "Medium",
+            "plungePoints": 40,
+            "trophyImageURL": "https://d3b7soun5iwe5o.cloudfront.net/trophies/03-19-2025/C012.png"
+        },
+        {
+            "id": "C013",
+            "challenge_description": "Hit a 30 day cold plunge streak.",
+            "challenge_name": "30-Day Streak",
+            "challenge_type": "streak",
+            "difficulty": "Medium",
+            "plungePoints": 80,
+            "trophyImageURL": "https://d3b7soun5iwe5o.cloudfront.net/trophies/03-19-2025/C013.png"
+        },
+        {
+            "id": "C014",
+            "challenge_description": "Hit a 45 day cold plunge streak.",
+            "challenge_name": "45-Day Streak",
+            "challenge_type": "streak",
+            "difficulty": "Hard",
+            "plungePoints": 160,
+            "trophyImageURL": "https://d3b7soun5iwe5o.cloudfront.net/trophies/03-19-2025/C014.png"
+        },
+        {
+            "id": "C015",
+            "challenge_description": "Hit a 60 day cold plunge streak.",
+            "challenge_name": "60-Day Streak",
+            "challenge_type": "streak",
+            "difficulty": "Hard",
+            "plungePoints": 320,
+            "trophyImageURL": "https://d3b7soun5iwe5o.cloudfront.net/trophies/03-19-2025/C015.png"
+        },
+        {
+            "id": "C016",
+            "challenge_description": "Hit a 90 day cold plunge streak.",
+            "challenge_name": "90-Day Streak",
+            "challenge_type": "streak",
+            "difficulty": "Hard",
+            "plungePoints": 640,
+            "trophyImageURL": "https://d3b7soun5iwe5o.cloudfront.net/trophies/03-19-2025/C016.png"
+        },
+        {
+            "id": "C017",
+            "challenge_description": "Complete a 3 - 3:59 minute cold plunge in 60ºF - 35ºF (15.6ºC - 1.7ºC) temperature water.",
+            "challenge_name": "3-Minute Endurance",
+            "challenge_type": "duration",
+            "difficulty": "Easy",
+            "plungePoints": 5,
+            "trophyImageURL": "https://d3b7soun5iwe5o.cloudfront.net/trophies/03-19-2025/C017.png"
+        },
+        {
+            "id": "C018",
+            "challenge_description": "Complete a 4 - 4:59 minute cold plunge in 60ºF - 35ºF (15.6ºC - 1.7ºC) temperature water.",
+            "challenge_name": "4-Minute Warrior",
+            "challenge_type": "duration",
+            "difficulty": "Medium",
+            "plungePoints": 5,
+            "trophyImageURL": "https://d3b7soun5iwe5o.cloudfront.net/trophies/03-19-2025/C018.png"
+        },
+        {
+            "id": "C019",
+            "challenge_description": "Complete a 5 - 5:59 minute cold plunge in 60ºF - 35ºF (15.6ºC - 1.7ºC) temperature water.",
+            "challenge_name": "5-Minute Master",
+            "challenge_type": "duration",
+            "difficulty": "Hard",
+            "plungePoints": 5,
+            "trophyImageURL": "https://d3b7soun5iwe5o.cloudfront.net/trophies/03-19-2025/C019.png"
+        },
+        {
+            "id": "C020",
+            "challenge_description": "Complete a 3 minute+ cold plunge in 35ºF / 1.7ºC or below.",
+            "challenge_name": "Ice Warrior (35 ºF / 1.7 ºC)",
+            "challenge_type": "temperature",
+            "difficulty": "Hard",
+            "plungePoints": 30,
+            "trophyImageURL": "https://d3b7soun5iwe5o.cloudfront.net/trophies/03-19-2025/C020.png"
+        },
+        {
+            "id": "C021",
+            "challenge_description": "Complete a 3 minute+ cold plunge in 40ºF - 35ºF (4.4ºC - 1.7ºC) temperature water.",
+            "challenge_name": "Ice Explorer (40 ºF / 4.4 ºC)",
+            "challenge_type": "temperature",
+            "difficulty": "Hard",
+            "plungePoints": 25,
+            "trophyImageURL": "https://d3b7soun5iwe5o.cloudfront.net/trophies/03-19-2025/C021.png"
+        },
+        {
+            "id": "C022",
+            "challenge_description": "Complete a 3 minute+ cold plunge in 45ºF - 40ºF (7.2ºC - 4.4ºC) temperature water.",
+            "challenge_name": "Arctic Explorer (45 ºF / 7.2 ºC)",
+            "challenge_type": "temperature",
+            "difficulty": "Medium",
+            "plungePoints": 20,
+            "trophyImageURL": "https://d3b7soun5iwe5o.cloudfront.net/trophies/03-19-2025/C022.png"
+        },
+        {
+            "id": "C023",
+            "challenge_description": "Complete a 3 minute+ cold plunge in 50ºF - 45ºF (10ºC - 7.2ºC) temperature water.",
+            "challenge_name": "Cold Conqueror (50 ºF / 10 ºC)",
+            "challenge_type": "temperature",
+            "difficulty": "Medium",
+            "plungePoints": 15,
+            "trophyImageURL": "https://d3b7soun5iwe5o.cloudfront.net/trophies/03-19-2025/C023.png"
+        },
+        {
+            "id": "C024",
+            "challenge_description": "Complete a 3 minute+ cold plunge in 55ºF - 50ºF (12.8ºC - 10ºC) temperature water.",
+            "challenge_name": "Chill Champion (55 ºF / 12.8 ºC)",
+            "challenge_type": "temperature",
+            "difficulty": "Easy",
+            "plungePoints": 10,
+            "trophyImageURL": "https://d3b7soun5iwe5o.cloudfront.net/trophies/03-19-2025/C024.png"
+        },
+        {
+            "id": "C025",
+            "challenge_description": "Complete a 3 minute+ cold plunge in 60ºF - 55ºF (15.6ºC - 12.8ºC) temperature water.",
+            "challenge_name": "Cool Challenger (60 ºF / 15.6 ºC)",
+            "challenge_type": "temperature",
+            "difficulty": "Easy",
+            "plungePoints": 5,
+            "trophyImageURL": "https://d3b7soun5iwe5o.cloudfront.net/trophies/03-19-2025/C025.png"
+        },
+        {
+            "id": "C026",
+            "challenge_description": "Beat your initial countdown time by 10 seconds.",
+            "challenge_name": "Time Beater (+10s)",
+            "challenge_type": "personal_improvement",
+            "difficulty": "Easy",
+            "plungePoints": 5,
+            "trophyImageURL": "https://d3b7soun5iwe5o.cloudfront.net/trophies/03-19-2025/C026.png"
+        },
+        {
+            "id": "C027",
+            "challenge_description": "Beat your initial countdown time by 30 seconds.",
+            "challenge_name": "Time Crusher (+30s)",
+            "challenge_type": "personal_improvement",
+            "difficulty": "Easy",
+            "plungePoints": 15,
+            "trophyImageURL": "https://d3b7soun5iwe5o.cloudfront.net/trophies/03-19-2025/C027.png"
+        },
+        {
+            "id": "C028",
+            "challenge_description": "Beat your initial countdown time by 60 seconds.",
+            "challenge_name": "Minute Mastery (+60s)",
+            "challenge_type": "personal_improvement",
+            "difficulty": "Medium",
+            "plungePoints": 30,
+            "trophyImageURL": "https://d3b7soun5iwe5o.cloudfront.net/trophies/03-19-2025/C028.png"
+        },
+        {
+            "id": "C029",
+            "challenge_description": "Beat your initial countdown time by 90 seconds.",
+            "challenge_name": "Time Dominator (+90s)",
+            "challenge_type": "personal_improvement",
+            "difficulty": "Hard",
+            "plungePoints": 45,
+            "trophyImageURL": "https://d3b7soun5iwe5o.cloudfront.net/trophies/03-19-2025/C029.png"
+        },
+        {
+            "id": "C030",
+            "challenge_description": "Cold plunge twice in one day.",
+            "challenge_name": "Double Dipper",
+            "challenge_type": "frequency",
+            "difficulty": "Medium",
+            "plungePoints": 20,
+            "trophyImageURL": "https://d3b7soun5iwe5o.cloudfront.net/trophies/03-19-2025/C030.png"
+        },
+        {
+            "id": "C031",
+            "challenge_description": "Be an early bird, complete a cold plunge between 6 AM and 7 AM.",
+            "challenge_name": "Early Bird (6 AM)",
+            "challenge_type": "schedule",
+            "difficulty": "Medium",
+            "plungePoints": 10,
+            "trophyImageURL": "https://d3b7soun5iwe5o.cloudfront.net/trophies/03-19-2025/C031.png"
+        },
+        {
+            "id": "C032",
+            "challenge_description": "Be an early bird, complete a cold plunge between 5 AM and 6 AM.",
+            "challenge_name": "Dawn Dipper (5 AM)",
+            "challenge_type": "schedule",
+            "difficulty": "Hard",
+            "plungePoints": 20,
+            "trophyImageURL": "https://d3b7soun5iwe5o.cloudfront.net/trophies/03-19-2025/C032.png"
+        },
+        {
+            "id": "C033",
+            "challenge_description": "Complete 3 cold plunges in a week.",
+            "challenge_name": "3x Weekly Warrior",
+            "challenge_type": "consistency",
+            "difficulty": "Easy",
+            "plungePoints": 10,
+            "trophyImageURL": "https://d3b7soun5iwe5o.cloudfront.net/trophies/03-19-2025/C033.png"
+        },
+        {
+            "id": "C034",
+            "challenge_description": "Complete 5 cold plunges in a week.",
+            "challenge_name": "5x Weekly Champion",
+            "challenge_type": "consistency",
+            "difficulty": "Medium",
+            "plungePoints": 20,
+            "trophyImageURL": "https://d3b7soun5iwe5o.cloudfront.net/trophies/03-19-2025/C034.png"
+        },
+        {
+            "id": "C035",
+            "challenge_description": "Complete 10 cold plunges in one month.",
+            "challenge_name": "10x Monthly Achiever",
+            "challenge_type": "consistency",
+            "difficulty": "Easy",
+            "plungePoints": 10,
+            "trophyImageURL": "https://d3b7soun5iwe5o.cloudfront.net/trophies/03-19-2025/C035.png"
+        },
+        {
+            "id": "C036",
+            "challenge_description": "Complete 20 cold plunges in one month.",
+            "challenge_name": "20x Monthly Master",
+            "challenge_type": "consistency",
+            "difficulty": "Medium",
+            "plungePoints": 20,
+            "trophyImageURL": "https://d3b7soun5iwe5o.cloudfront.net/trophies/03-19-2025/C036.png"
+        },
+        {
+            "id": "C037",
+            "challenge_description": "Cold plunge every single day in a given month. The target value of this challenge changes based on the current month we are in. It updates on the 1st day of the month at 12 AM (New York time).",
+            "challenge_name": "Full Month Streak",
+            "challenge_type": "dynamic",
+            "difficulty": "Hard",
+            "plungePoints": 100,
+            "trophyImageURL": "https://d3b7soun5iwe5o.cloudfront.net/trophies/03-19-2025/C037.png"
+        },
+        {
+            "id": "C038",
+            "challenge_description": "Join 'The Palz Club' in the Clubs section of the app.",
+            "challenge_name": "Join The Palz Club",
+            "challenge_type": "social",
+            "difficulty": "Easy",
+            "plungePoints": 5,
+            "trophyImageURL": "https://d3b7soun5iwe5o.cloudfront.net/trophies/03-19-2025/C038.png"
+        },
+        {
+            "id": "C039",
+            "challenge_description": "Give your first high five to another Pal in the Palz Club Social Feed.",
+            "challenge_name": "Give a High Five",
+            "challenge_type": "social",
+            "difficulty": "Easy",
+            "plungePoints": 5,
+            "trophyImageURL": "https://d3b7soun5iwe5o.cloudfront.net/trophies/03-19-2025/C039.png"
+        },
+        {
+            "id": "C040",
+            "challenge_description": "Make your first words of encouragement comment to another Pal in the Palz Club Social Feed.",
+            "challenge_name": "Encouragement Comment",
+            "challenge_type": "social",
+            "difficulty": "Easy",
+            "plungePoints": 5,
+            "trophyImageURL": "https://d3b7soun5iwe5o.cloudfront.net/trophies/03-19-2025/C040.png"
+        },
+        {
+            "id": "C041",
+            "challenge_description": "Follow your first Pal.",
+            "challenge_name": "Follow a Pal",
+            "challenge_type": "social",
+            "difficulty": "Easy",
+            "plungePoints": 5,
+            "trophyImageURL": "https://d3b7soun5iwe5o.cloudfront.net/trophies/03-19-2025/C041.png"
+        },
+        {
+            "id": "C042",
+            "challenge_description": "Leave an app feature request in the Settings \"Feature Request\" section. You will be eligible to leave a request 14 days after signing up for PlungePalz and have completed at least 5 cold plunge sessions.",
+            "challenge_name": "App Pioneer",
+            "challenge_type": "app_feature",
+            "difficulty": "Medium",
+            "plungePoints": 15,
+            "trophyImageURL": "https://d3b7soun5iwe5o.cloudfront.net/trophies/03-19-2025/C042.png"
+        }
+    ];
+}
+
+// Close modal when clicking outside of it
+window.onclick = function(event) {
+    const modal = document.getElementById('challengesModal');
+    if (event.target === modal) {
+        closeChallengesModal();
+    }
+}
+
+function loadLeaderboard() {
+    const leaderboard = document.getElementById('leaderboard');
+    
+    // Show loading state
+    leaderboard.innerHTML = `
+        <div class="loading-leaderboard">
+            <div class="loading-spinner"></div>
+            <p>Loading top earners...</p>
+        </div>
+    `;
+    
+    // Use local proxy endpoint to avoid CORS issues
+    fetch('/api/leaderboard')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            Logger.debug('Leaderboard data loaded:', data);
+            displayLeaderboard(data);
+        })
+        .catch(error => {
+            Logger.error('Error loading leaderboard:', error);
+            displayLeaderboardError();
+        });
+}
+
+function displayLeaderboard(users) {
+    const leaderboard = document.getElementById('leaderboard');
+    leaderboard.innerHTML = '';
+    
+    users.forEach(user => {
+        const leaderboardItem = createLeaderboardItem(user);
+        leaderboard.appendChild(leaderboardItem);
+    });
+}
+
+function createLeaderboardItem(user) {
+    const item = document.createElement('div');
+    item.className = 'leaderboard-item';
+    
+    // Format points with commas
+    const formattedPoints = parseInt(user.points).toLocaleString();
+    
+    // Create rank element
+    const rankDiv = document.createElement('div');
+    rankDiv.className = 'rank';
+    rankDiv.textContent = user.rank;
+    
+    // Create user info container
+    const userInfoDiv = document.createElement('div');
+    userInfoDiv.className = 'user-info';
+    
+    // Create avatar element
+    const avatarDiv = document.createElement('div');
+    if (user.avatar && user.avatar.trim() !== '') {
+        avatarDiv.className = 'avatar';
+        const avatarImg = document.createElement('img');
+        avatarImg.src = user.avatar;
+        avatarImg.alt = user.username;
+        avatarImg.onerror = function() {
+            // Replace with placeholder on error
+            avatarDiv.className = 'avatar-placeholder';
+            avatarDiv.innerHTML = '<i class="fas fa-user"></i>';
+        };
+        avatarDiv.appendChild(avatarImg);
+    } else {
+        avatarDiv.className = 'avatar-placeholder';
+        avatarDiv.innerHTML = '<i class="fas fa-user"></i>';
+    }
+    
+    // Create username container
+    const usernameContainer = document.createElement('div');
+    usernameContainer.className = 'username-container';
+    
+    // Create username span
+    const usernameSpan = document.createElement('span');
+    usernameSpan.className = 'username';
+    usernameSpan.textContent = `@${user.username}`;
+    usernameContainer.appendChild(usernameSpan);
+    
+    // Create verified badge if needed
+    if (user.verified && user.verified.trim() !== '') {
+        const verifiedDiv = document.createElement('div');
+        verifiedDiv.className = 'verified-badge';
+        const verifiedImg = document.createElement('img');
+        verifiedImg.src = user.verified;
+        verifiedImg.alt = 'Verified';
+        verifiedImg.onerror = function() {
+            verifiedDiv.style.display = 'none';
+        };
+        verifiedDiv.appendChild(verifiedImg);
+        usernameContainer.appendChild(verifiedDiv);
+    }
+    
+    // Create points element
+    const pointsDiv = document.createElement('div');
+    pointsDiv.className = 'points';
+    pointsDiv.textContent = `${formattedPoints} pts`;
+    
+    // Assemble the item
+    userInfoDiv.appendChild(avatarDiv);
+    userInfoDiv.appendChild(usernameContainer);
+    
+    item.appendChild(rankDiv);
+    item.appendChild(userInfoDiv);
+    item.appendChild(pointsDiv);
+    
+    return item;
+}
+
+function displayLeaderboardError() {
+    const leaderboard = document.getElementById('leaderboard');
+    leaderboard.innerHTML = `
+        <div class="error-leaderboard">
+            <p>Unable to load leaderboard data. Please try again later.</p>
+        </div>
+    `;
+}
+</script>

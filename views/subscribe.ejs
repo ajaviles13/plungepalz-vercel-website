@@ -1,0 +1,236 @@
+<!-- Subscribe -->
+<section class="subscribe-section">
+    <div class="container">
+        <div class="subscribe-content">
+            <h1 class="subscribe-title">Coming soon, subscribe for updates…</h1>
+            
+            <div class="subscribe-form-container">
+                <form class="subscribe-form" id="subscribePageForm">
+                    <div class="form-group">
+                        <label for="email">Email Address <span class="required">*</span></label>
+                        <input type="email" id="email" name="email" required placeholder="Enter your email address">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="name">Name (optional)</label>
+                        <input type="text" id="name" name="name" placeholder="Enter your name">
+                    </div>
+                    
+                    <button type="submit" class="submit-btn" id="subscribePageBtn">
+                        <i class="fas fa-envelope"></i>
+                        Subscribe for Updates
+                    </button>
+                </form>
+                
+                <p class="subscribe-note">
+                    Be the first to know about new features, updates, and exclusive content from PlungePalz. 
+                    We'll only send you the good stuff, and you can unsubscribe at any time.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+.subscribe-section {
+    padding: 120px 0 80px;
+    background: linear-gradient(135deg, var(--blue-primary) 0%, var(--black-primary) 100%);
+    color: var(--white-primary);
+    min-height: calc(100vh - 200px);
+    display: flex;
+    align-items: center;
+}
+
+.subscribe-content {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.subscribe-title {
+    font-size: 3rem;
+    font-weight: 800;
+    margin-bottom: 3rem;
+    line-height: 1.2;
+}
+
+.subscribe-form-container {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 3rem;
+    border-radius: 16px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.subscribe-form .form-group {
+    margin-bottom: 2rem;
+    text-align: left;
+}
+
+.subscribe-form label {
+    display: block;
+    font-weight: 600;
+    color: var(--white-primary);
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+}
+
+.subscribe-form input {
+    width: 100%;
+    padding: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: 'Poppins', sans-serif;
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--white-primary);
+    transition: border-color 0.3s ease;
+}
+
+.subscribe-form input::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.subscribe-form input:focus {
+    outline: none;
+    border-color: var(--white-primary);
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1);
+}
+
+.subscribe-form .submit-btn {
+    background: var(--white-primary);
+    color: var(--blue-primary);
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Poppins', sans-serif;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.subscribe-form .submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    background: var(--white-secondary);
+}
+
+.subscribe-form .submit-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.subscribe-note {
+    margin-top: 2rem;
+    font-size: 0.9rem;
+    opacity: 0.8;
+    line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+    .subscribe-title {
+        font-size: 2rem;
+    }
+    
+    .subscribe-form-container {
+        padding: 2rem;
+    }
+}
+</style>
+
+<script>
+// Subscribe Page Form Handler
+document.addEventListener('DOMContentLoaded', function() {
+    const subscribeForm = document.getElementById('subscribePageForm');
+    const subscribeBtn = document.getElementById('subscribePageBtn');
+    const nameInput = document.getElementById('name');
+    const emailInput = document.getElementById('email');
+    
+    if (subscribeForm) {
+        subscribeForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const name = nameInput.value.trim();
+            const email = emailInput.value.trim();
+            
+            if (!email) {
+                Logger.error('Email is required for subscription');
+                return;
+            }
+            
+            // Show loading state
+            const originalText = subscribeBtn.innerHTML;
+            subscribeBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Subscribing...';
+            subscribeBtn.disabled = true;
+            
+            try {
+                Logger.debug('Submitting subscription from subscribe page:', { name, email });
+                
+                // Prepare payload for API
+                const payload = {
+                    "email": email,
+                    "name": name || '' // Send empty string if name is not provided
+                };
+                
+                // Call the subscription API
+                const response = await fetch('https://wbv224o2f4.execute-api.us-east-2.amazonaws.com/EmailWorkflow_mvp_production/Email_Subscribe', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(payload)
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const result = await response.json();
+                Logger.debug('Subscription API response:', result);
+                
+                // Show success state
+                subscribeBtn.innerHTML = '<i class="fas fa-check"></i> Successfully Subscribed!';
+                subscribeBtn.style.background = 'linear-gradient(135deg, #10b981 0%, #059669 100%)';
+                subscribeBtn.style.color = 'var(--white-primary)';
+                
+                // Clear form
+                nameInput.value = '';
+                emailInput.value = '';
+                
+                Logger.success('Successfully subscribed from subscribe page:', email);
+                
+                // Reset button after 4 seconds (longer for main page)
+                setTimeout(() => {
+                    subscribeBtn.innerHTML = originalText;
+                    subscribeBtn.style.background = '';
+                    subscribeBtn.style.color = '';
+                    subscribeBtn.disabled = false;
+                }, 4000);
+                
+            } catch (error) {
+                Logger.error('Subscription error:', error);
+                
+                // Show error state
+                subscribeBtn.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Error - Please Try Again';
+                subscribeBtn.style.background = 'linear-gradient(135deg, #dc2626 0%, #b91c1c 100%)';
+                subscribeBtn.style.color = 'var(--white-primary)';
+                
+                // Reset button after 4 seconds
+                setTimeout(() => {
+                    subscribeBtn.innerHTML = originalText;
+                    subscribeBtn.style.background = '';
+                    subscribeBtn.style.color = '';
+                    subscribeBtn.disabled = false;
+                }, 4000);
+            }
+        });
+    }
+});
+</script> 

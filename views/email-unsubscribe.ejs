@@ -1,0 +1,825 @@
+<!-- Email Preferences -->
+<section class="preferences-section">
+    <div class="container">
+        <div class="preferences-content">
+            <h1 class="preferences-title">Update Email Preferences</h1>
+            
+            <div class="preferences-form-container">
+                <p class="preferences-intro">
+                    Customize which emails you'd like to receive from PlungePalz. 
+                    You can always update these preferences or unsubscribe completely at any time.
+                </p>
+                
+                <form class="preferences-form" id="preferencesForm">
+                    <div class="form-group">
+                        <label for="email">Email Address <span class="required">*</span></label>
+                        <input type="email" id="email" name="email" required placeholder="Enter your email address">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="section-label">Email Types</label>
+                        <p class="section-description">Select the types of emails you'd like to receive:</p>
+                        
+                        <div class="checkbox-grid">
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="educational" name="preferences" value="educational" checked>
+                                <label for="educational" class="checkbox-label">
+                                    <i class="fas fa-graduation-cap"></i>
+                                    <div class="checkbox-content">
+                                        <strong>Educational</strong>
+                                        <span>Cold plunge tips, health benefits, and expert advice</span>
+                                    </div>
+                                </label>
+                            </div>
+                            
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="promotional" name="preferences" value="promotional" checked>
+                                <label for="promotional" class="checkbox-label">
+                                    <i class="fas fa-tag"></i>
+                                    <div class="checkbox-content">
+                                        <strong>Promotional</strong>
+                                        <span>Special offers, discounts, and new product announcements</span>
+                                    </div>
+                                </label>
+                            </div>
+                            
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="onboarding" name="preferences" value="onboarding" checked>
+                                <label for="onboarding" class="checkbox-label">
+                                    <i class="fas fa-rocket"></i>
+                                    <div class="checkbox-content">
+                                        <strong>Onboarding</strong>
+                                        <span>Getting started guides and welcome series</span>
+                                    </div>
+                                </label>
+                            </div>
+                            
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="app-updates" name="preferences" value="app-updates" checked>
+                                <label for="app-updates" class="checkbox-label">
+                                    <i class="fas fa-mobile-alt"></i>
+                                    <div class="checkbox-content">
+                                        <strong>App Updates</strong>
+                                        <span>New features, bug fixes, and app announcements</span>
+                                    </div>
+                                </label>
+                            </div>
+                            
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="metrics-reports" name="preferences" value="metrics-reports" checked>
+                                <label for="metrics-reports" class="checkbox-label">
+                                    <i class="fas fa-chart-line"></i>
+                                    <div class="checkbox-content">
+                                        <strong>Your User Metrics Reports</strong>
+                                        <span>Personal progress summaries and achievement updates</span>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="submit" class="submit-btn" id="submitBtn">
+                            <i class="fas fa-cog"></i>
+                            Update Email Preferences
+                        </button>
+                        <div class="quick-actions">
+                            <button type="button" class="quick-btn" id="selectAllBtn">
+                                <i class="fas fa-check-double"></i>
+                                Select All
+                            </button>
+                            <button type="button" class="quick-btn" id="unselectAllBtn">
+                                <i class="fas fa-times"></i>
+                                Unselect All
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                
+                <div class="help-section">
+                    <h3>Need Help?</h3>
+                    <p>If you're having trouble with your email preferences or have questions, contact us at <a href="mailto:Support@PlungePalz.com">Support@PlungePalz.com</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('preferencesForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const selectAllBtn = document.getElementById('selectAllBtn');
+    const unselectAllBtn = document.getElementById('unselectAllBtn');
+    const checkboxes = document.querySelectorAll('input[name="preferences"]');
+    const emailInput = document.getElementById('email');
+    
+    const API_URL = '/api/email-preferences';
+    
+    // Store original preferences to detect changes
+    let originalPreferences = {};
+    let preferencesLoaded = false;
+    
+    // Get send_id from URL parameters
+    function getUrlParameter(name) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(name);
+    }
+    
+    // Map API field names to checkbox IDs
+    const fieldMapping = {
+        'educational': 'educational',
+        'promotional': 'promotional', 
+        'onboarding': 'onboarding',
+        'app_updates': 'app-updates',
+        'user_metrics_engagement': 'metrics-reports'
+    };
+    
+    // Load existing preferences on page load
+    async function loadExistingPreferences() {
+        const sendId = getUrlParameter('send_id');
+        
+        if (!sendId) {
+            Logger.debug('No send_id parameter found, using default settings');
+            showNotification('No send_id parameter found in URL. Using default settings.', 'info');
+            return;
+        }
+        
+        Logger.debug('Found send_id parameter:', sendId);
+        
+        try {
+            const requestUrl = `${API_URL}?send_id=${encodeURIComponent(sendId)}`;
+            Logger.debug('Making GET request to:', requestUrl);
+            
+            const response = await fetch(requestUrl, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            
+            Logger.debug('Response status:', response.status);
+            Logger.debug('Response headers:', Object.fromEntries(response.headers.entries()));
+            
+            const data = await response.json();
+            Logger.debug('API Response:', data);
+            
+            if (data.message === 'Invalid ID') {
+                Logger.debug('Invalid ID received, using default settings');
+                showNotification('Link expired or invalid. Using default email preferences.', 'warning');
+                return;
+            }
+            
+            if (data.message === 'Missing ID parameter') {
+                Logger.error('API says missing ID parameter, but we sent:', sendId);
+                showNotification('API configuration issue. Please contact support.', 'error');
+                return;
+            }
+            
+            if (data.email && data.subscription_settings) {
+                // Populate email field
+                emailInput.value = data.email;
+                emailInput.readOnly = true; // Make email field read-only since it came from the link
+                
+                // Store original preferences for change detection
+                originalPreferences = { ...data.subscription_settings };
+                preferencesLoaded = true;
+                
+                // Update checkboxes based on subscription settings
+                Object.entries(fieldMapping).forEach(([apiField, checkboxId]) => {
+                    const checkbox = document.getElementById(checkboxId);
+                    if (checkbox && data.subscription_settings.hasOwnProperty(apiField)) {
+                        checkbox.checked = data.subscription_settings[apiField];
+                    }
+                });
+                
+                Logger.success('Preferences loaded successfully');
+                showNotification('Email preferences loaded from your account.', 'info');
+                updateButtonText();
+            } else {
+                Logger.error('Unexpected API response format:', data);
+                showNotification('Unexpected response format. Using default settings.', 'warning');
+            }
+            
+        } catch (error) {
+            Logger.error('Error loading preferences:', error);
+            showNotification('Error loading your preferences. Using default settings.', 'error');
+        }
+    }
+    
+    // Show notification message
+    function showNotification(message, type = 'info') {
+        const notification = document.createElement('div');
+        notification.className = `notification ${type}`;
+        notification.innerHTML = `
+            <div class="notification-content">
+                <i class="fas ${type === 'error' ? 'fa-exclamation-triangle' : type === 'warning' ? 'fa-exclamation-circle' : 'fa-info-circle'}"></i>
+                <span>${message}</span>
+            </div>
+        `;
+        
+        // Insert at top of form container
+        const container = document.querySelector('.preferences-form-container');
+        container.insertBefore(notification, container.firstChild);
+        
+        // Auto-remove after 5 seconds
+        setTimeout(() => {
+            if (notification.parentNode) {
+                notification.remove();
+            }
+        }, 5000);
+    }
+    
+    // Check if current preferences differ from original
+    function hasPreferencesChanged() {
+        if (!preferencesLoaded) {
+            return true; // Allow submission if no original preferences loaded
+        }
+        
+        // Get current checkbox states
+        const currentPreferences = {};
+        Object.entries(fieldMapping).forEach(([apiField, checkboxId]) => {
+            const checkbox = document.getElementById(checkboxId);
+            currentPreferences[apiField] = checkbox ? checkbox.checked : false;
+        });
+        
+        // Compare with original preferences
+        return Object.keys(originalPreferences).some(key => 
+            originalPreferences[key] !== currentPreferences[key]
+        );
+    }
+    
+    // Update button text based on selections
+    function updateButtonText() {
+        const checkedBoxes = document.querySelectorAll('input[name="preferences"]:checked');
+        const hasChanged = hasPreferencesChanged();
+        
+        if (checkedBoxes.length === 0) {
+            submitBtn.innerHTML = '<i class="fas fa-ban"></i> Unsubscribe from Everything';
+            submitBtn.classList.add('unsubscribe-mode');
+        } else {
+            submitBtn.innerHTML = '<i class="fas fa-cog"></i> Update Email Preferences';
+            submitBtn.classList.remove('unsubscribe-mode');
+        }
+        
+        // Enable/disable button based on changes
+        if (!hasChanged && preferencesLoaded) {
+            submitBtn.disabled = true;
+            submitBtn.classList.add('no-changes');
+            if (checkedBoxes.length === 0) {
+                submitBtn.innerHTML = '<i class="fas fa-ban"></i> No Changes to Save';
+            } else {
+                submitBtn.innerHTML = '<i class="fas fa-check"></i> No Changes to Save';
+            }
+        } else {
+            submitBtn.disabled = false;
+            submitBtn.classList.remove('no-changes');
+        }
+        
+        // Update quick action buttons
+        if (checkedBoxes.length === checkboxes.length) {
+            selectAllBtn.style.opacity = '0.5';
+            selectAllBtn.disabled = true;
+            unselectAllBtn.style.opacity = '1';
+            unselectAllBtn.disabled = false;
+        } else if (checkedBoxes.length === 0) {
+            selectAllBtn.style.opacity = '1';
+            selectAllBtn.disabled = false;
+            unselectAllBtn.style.opacity = '0.5';
+            unselectAllBtn.disabled = true;
+        } else {
+            selectAllBtn.style.opacity = '1';
+            selectAllBtn.disabled = false;
+            unselectAllBtn.style.opacity = '1';
+            unselectAllBtn.disabled = false;
+        }
+    }
+    
+    // Add event listeners to checkboxes
+    checkboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', updateButtonText);
+    });
+    
+    // Select all button
+    selectAllBtn.addEventListener('click', function() {
+        checkboxes.forEach(checkbox => {
+            checkbox.checked = true;
+        });
+        updateButtonText();
+    });
+    
+    // Unselect all button
+    unselectAllBtn.addEventListener('click', function() {
+        checkboxes.forEach(checkbox => {
+            checkbox.checked = false;
+        });
+        updateButtonText();
+    });
+    
+    // Form submission
+    form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        const email = emailInput.value.trim();
+        if (!email) {
+            showNotification('Please enter your email address.', 'error');
+            return;
+        }
+        
+        const checkedBoxes = document.querySelectorAll('input[name="preferences"]:checked');
+        
+        // Build subscription settings object
+        const subscriptionSettings = {};
+        Object.entries(fieldMapping).forEach(([apiField, checkboxId]) => {
+            const checkbox = document.getElementById(checkboxId);
+            subscriptionSettings[apiField] = checkbox ? checkbox.checked : false;
+        });
+        
+        // Show loading state
+        const originalText = submitBtn.innerHTML;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Updating...';
+        submitBtn.disabled = true;
+        
+        try {
+            Logger.debug('Submitting preferences update:', { email, subscriptionSettings });
+            
+            const response = await fetch(API_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    email: email,
+                    subscription_settings: subscriptionSettings
+                })
+            });
+            
+            const data = await response.json();
+            Logger.debug('Update response:', data);
+            
+            if (data.message === 'Update Successful') {
+                // Show success message
+                let message;
+                if (checkedBoxes.length === 0) {
+                    message = `You have been unsubscribed from all PlungePalz emails. We're sorry to see you go!`;
+                } else {
+                    const selectedTypes = Array.from(checkedBoxes).map(cb => {
+                        const label = cb.parentNode.querySelector('.checkbox-content strong').textContent;
+                        return label;
+                    });
+                    message = `Your email preferences have been updated successfully. You'll receive: ${selectedTypes.join(', ')} emails.`;
+                }
+                
+                const successDiv = document.createElement('div');
+                successDiv.className = 'success-message';
+                successDiv.innerHTML = `
+                    <div class="success-content">
+                        <i class="fas fa-check-circle"></i>
+                        <h3>Preferences Updated!</h3>
+                        <p>${message}</p>
+                    </div>
+                `;
+                
+                form.parentNode.insertBefore(successDiv, form);
+                form.style.display = 'none';
+                
+                Logger.success('Preferences updated successfully');
+                
+            } else if (data.message === 'Invalid Email') {
+                showNotification('Email address not found in our system. Please check your email address.', 'error');
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            } else {
+                throw new Error(data.message || 'Unknown error occurred');
+            }
+            
+        } catch (error) {
+            Logger.error('Error updating preferences:', error);
+            showNotification('Error updating your preferences. Please try again.', 'error');
+            submitBtn.innerHTML = originalText;
+            submitBtn.disabled = false;
+        }
+    });
+    
+    // Initialize page
+    updateButtonText();
+    loadExistingPreferences();
+});
+</script>
+
+<style>
+.preferences-section {
+    padding: 120px 0 80px;
+    background: var(--white-primary);
+    min-height: calc(100vh - 200px);
+}
+
+.preferences-content {
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.preferences-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--black-primary);
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.preferences-form-container {
+    background: var(--white-secondary);
+    padding: 3rem;
+    border-radius: 16px;
+    border: 1px solid var(--blue-tertiary);
+    box-shadow: 0 4px 6px rgba(18, 18, 18, 0.05);
+}
+
+.preferences-intro {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: var(--black-secondary);
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.preferences-form .form-group {
+    margin-bottom: 2rem;
+}
+
+.preferences-form label {
+    display: block;
+    font-weight: 600;
+    color: var(--black-primary);
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+}
+
+.preferences-form input[type="email"] {
+    width: 100%;
+    padding: 1rem;
+    border: 1px solid var(--blue-tertiary);
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: 'Poppins', sans-serif;
+    transition: border-color 0.3s ease;
+}
+
+.preferences-form input[type="email"]:focus {
+    outline: none;
+    border-color: var(--blue-primary);
+    box-shadow: 0 0 0 3px rgba(0, 116, 255, 0.1);
+}
+
+.preferences-form input[type="email"]:read-only {
+    background-color: #f8f9fa;
+    color: var(--black-secondary);
+    cursor: not-allowed;
+}
+
+.section-label {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--black-primary);
+    margin-bottom: 0.5rem;
+}
+
+.section-description {
+    color: var(--black-secondary);
+    margin-bottom: 1.5rem;
+    font-size: 1rem;
+}
+
+.checkbox-grid {
+    display: grid;
+    gap: 1rem;
+}
+
+.checkbox-item {
+    position: relative;
+}
+
+.checkbox-item input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1.5rem;
+    background: var(--white-primary);
+    border: 2px solid var(--blue-tertiary);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.checkbox-label:hover {
+    border-color: var(--blue-primary);
+    box-shadow: 0 4px 12px rgba(0, 116, 255, 0.1);
+    transform: translateY(-2px);
+}
+
+.checkbox-item input[type="checkbox"]:checked + .checkbox-label {
+    border-color: var(--blue-primary);
+    background: linear-gradient(135deg, rgba(0, 116, 255, 0.05) 0%, rgba(0, 116, 255, 0.02) 100%);
+}
+
+.checkbox-item input[type="checkbox"]:checked + .checkbox-label::after {
+    content: "✓";
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    color: var(--blue-primary);
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.checkbox-label i {
+    color: var(--blue-primary);
+    font-size: 1.5rem;
+    margin-top: 0.2rem;
+    flex-shrink: 0;
+}
+
+.checkbox-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.checkbox-content strong {
+    color: var(--black-primary);
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.checkbox-content span {
+    color: var(--black-secondary);
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+.form-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.submit-btn {
+    background: linear-gradient(135deg, var(--blue-primary) 0%, var(--blue-secondary) 100%);
+    color: var(--white-primary);
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(0, 116, 255, 0.3);
+}
+
+.submit-btn.unsubscribe-mode {
+    background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+}
+
+.submit-btn.unsubscribe-mode:hover {
+    box-shadow: 0 10px 25px rgba(220, 38, 38, 0.3);
+}
+
+.submit-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.submit-btn.no-changes {
+    background: #6b7280;
+    color: #f9fafb;
+    cursor: not-allowed;
+}
+
+.submit-btn.no-changes:hover {
+    background: #6b7280;
+    transform: none;
+    box-shadow: none;
+}
+
+.quick-actions {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+}
+
+.quick-btn {
+    background: var(--white-primary);
+    color: var(--blue-primary);
+    border: 1px solid var(--blue-tertiary);
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.quick-btn:hover:not(:disabled) {
+    background: var(--blue-primary);
+    color: var(--white-primary);
+    border-color: var(--blue-primary);
+}
+
+.quick-btn:disabled {
+    cursor: not-allowed;
+}
+
+.help-section {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--blue-tertiary);
+    text-align: center;
+}
+
+.help-section h3 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--black-primary);
+    margin-bottom: 1rem;
+}
+
+.help-section p {
+    color: var(--black-secondary);
+    margin-bottom: 1rem;
+}
+
+.help-section a {
+    color: var(--blue-primary);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.help-section a:hover {
+    text-decoration: underline;
+}
+
+.success-message {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: white;
+    padding: 2rem;
+    border-radius: 12px;
+    margin-bottom: 2rem;
+    text-align: center;
+    animation: slideIn 0.5s ease-out;
+}
+
+.success-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.success-content i {
+    font-size: 3rem;
+    opacity: 0.9;
+}
+
+.success-content h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0;
+}
+
+.success-content p {
+    font-size: 1rem;
+    line-height: 1.5;
+    margin: 0;
+    opacity: 0.9;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 768px) {
+    .preferences-title {
+        font-size: 2rem;
+    }
+    
+    .preferences-form-container {
+        padding: 2rem;
+    }
+    
+    .preferences-content {
+        max-width: 100%;
+        padding: 0 1rem;
+    }
+    
+    .checkbox-label {
+        padding: 1rem;
+        gap: 0.75rem;
+    }
+    
+    .checkbox-label i {
+        font-size: 1.3rem;
+    }
+    
+    .checkbox-content strong {
+        font-size: 1rem;
+    }
+    
+    .checkbox-content span {
+        font-size: 0.85rem;
+    }
+    
+    .quick-actions {
+        flex-direction: column;
+    }
+    
+    .quick-btn {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .preferences-title {
+        font-size: 1.8rem;
+    }
+    
+    .preferences-form-container {
+        padding: 1.5rem;
+    }
+    
+    .checkbox-label {
+        flex-direction: column;
+        text-align: center;
+        gap: 0.5rem;
+    }
+    
+    .checkbox-label i {
+        align-self: center;
+    }
+}
+
+.notification {
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    border-left: 4px solid;
+    animation: slideIn 0.3s ease-out;
+}
+
+.notification.info {
+    background-color: #e3f2fd;
+    border-left-color: #2196f3;
+    color: #1565c0;
+}
+
+.notification.warning {
+    background-color: #fff3e0;
+    border-left-color: #ff9800;
+    color: #e65100;
+}
+
+.notification.error {
+    background-color: #ffebee;
+    border-left-color: #f44336;
+    color: #c62828;
+}
+
+.notification-content {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.notification-content i {
+    font-size: 1.1rem;
+    flex-shrink: 0;
+}
+</style> 
