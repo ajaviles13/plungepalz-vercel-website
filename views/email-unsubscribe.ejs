@@ -6,8 +6,7 @@
             
             <div class="preferences-form-container">
                 <p class="preferences-intro">
-                    Customize which emails you'd like to receive from PlungePalz. 
-                    You can always update these preferences or unsubscribe completely at any time.
+                    Customize which emails you'd like to receive from PlungePalz.
                 </p>
                 
                 <form class="preferences-form" id="preferencesForm">
@@ -20,61 +19,8 @@
                         <label class="section-label">Email Types</label>
                         <p class="section-description">Select the types of emails you'd like to receive:</p>
                         
-                        <div class="checkbox-grid">
-                            <div class="checkbox-item">
-                                <input type="checkbox" id="educational" name="preferences" value="educational" checked>
-                                <label for="educational" class="checkbox-label">
-                                    <i class="fas fa-graduation-cap"></i>
-                                    <div class="checkbox-content">
-                                        <strong>Educational</strong>
-                                        <span>Cold plunge tips, health benefits, and expert advice</span>
-                                    </div>
-                                </label>
-                            </div>
-                            
-                            <div class="checkbox-item">
-                                <input type="checkbox" id="promotional" name="preferences" value="promotional" checked>
-                                <label for="promotional" class="checkbox-label">
-                                    <i class="fas fa-tag"></i>
-                                    <div class="checkbox-content">
-                                        <strong>Promotional</strong>
-                                        <span>Special offers, discounts, and new product announcements</span>
-                                    </div>
-                                </label>
-                            </div>
-                            
-                            <div class="checkbox-item">
-                                <input type="checkbox" id="onboarding" name="preferences" value="onboarding" checked>
-                                <label for="onboarding" class="checkbox-label">
-                                    <i class="fas fa-rocket"></i>
-                                    <div class="checkbox-content">
-                                        <strong>Onboarding</strong>
-                                        <span>Getting started guides and welcome series</span>
-                                    </div>
-                                </label>
-                            </div>
-                            
-                            <div class="checkbox-item">
-                                <input type="checkbox" id="app-updates" name="preferences" value="app-updates" checked>
-                                <label for="app-updates" class="checkbox-label">
-                                    <i class="fas fa-mobile-alt"></i>
-                                    <div class="checkbox-content">
-                                        <strong>App Updates</strong>
-                                        <span>New features, bug fixes, and app announcements</span>
-                                    </div>
-                                </label>
-                            </div>
-                            
-                            <div class="checkbox-item">
-                                <input type="checkbox" id="metrics-reports" name="preferences" value="metrics-reports" checked>
-                                <label for="metrics-reports" class="checkbox-label">
-                                    <i class="fas fa-chart-line"></i>
-                                    <div class="checkbox-content">
-                                        <strong>Your User Metrics Reports</strong>
-                                        <span>Personal progress summaries and achievement updates</span>
-                                    </div>
-                                </label>
-                            </div>
+                        <div class="checkbox-grid" id="checkboxGrid">
+                            <!-- Checkboxes will be dynamically generated here -->
                         </div>
                     </div>
                     
@@ -111,14 +57,49 @@ document.addEventListener('DOMContentLoaded', function() {
     const submitBtn = document.getElementById('submitBtn');
     const selectAllBtn = document.getElementById('selectAllBtn');
     const unselectAllBtn = document.getElementById('unselectAllBtn');
-    const checkboxes = document.querySelectorAll('input[name="preferences"]');
     const emailInput = document.getElementById('email');
+    const checkboxGrid = document.getElementById('checkboxGrid');
     
     const API_URL = '/api/email-preferences';
     
     // Store original preferences to detect changes
     let originalPreferences = {};
     let preferencesLoaded = false;
+    let currentCheckboxes = [];
+    
+    // Define all possible email preference options with their details
+    const emailPreferenceOptions = {
+        'WhatIsPlungePalz': {
+            title: 'What is PlungePalz?',
+            description: 'Introduction to the PlungePalz mission, why cold plungers love the app, and how to get started',
+            icon: 'fas fa-graduation-cap'
+        },
+        'OnboardingAbandoned': {
+            title: 'Complete Your Setup',
+            description: 'Helpful reminders and tips to finish setting up your PlungePalz account',
+            icon: 'fas fa-rocket'
+        },
+        'ReEngagement': {
+            title: 'Stay Motivated',
+            description: 'Inspiration and encouragement to keep up your cold plunge practice',
+            icon: 'fas fa-fire'
+        },
+        'CommunitySocial': {
+            title: 'Community & Social',
+            description: 'User spotlights, challenges, community achievements, and social features',
+            icon: 'fas fa-users'
+        },
+        'AppUpdates': {
+            title: 'App Updates',
+            description: 'New features, improvements, bug fixes, and product announcements',
+            icon: 'fas fa-mobile-alt'
+        },
+        'UserMetricsReport': {
+            title: 'Your Progress Reports',
+            description: 'Personal metrics, achievements, streaks, and progress summaries',
+            icon: 'fas fa-chart-line'
+        }
+    };
     
     // Get send_id from URL parameters
     function getUrlParameter(name) {
@@ -126,30 +107,68 @@ document.addEventListener('DOMContentLoaded', function() {
         return urlParams.get(name);
     }
     
-    // Map API field names to checkbox IDs
-    const fieldMapping = {
-        'educational': 'educational',
-        'promotional': 'promotional', 
-        'onboarding': 'onboarding',
-        'app_updates': 'app-updates',
-        'user_metrics_engagement': 'metrics-reports'
-    };
+    // Generate checkbox HTML for a preference option
+    function generateCheckboxHTML(key, option, isChecked = true) {
+        const checkboxId = key.toLowerCase().replace(/([A-Z])/g, '-$1').substring(1);
+        return `
+            <div class="checkbox-item">
+                <input type="checkbox" id="${checkboxId}" name="preferences" value="${key}" ${isChecked ? 'checked' : ''}>
+                <label for="${checkboxId}" class="checkbox-label">
+                    <div class="checkbox-content">
+                        <div class="checkbox-content-header">
+                            <i class="${option.icon}"></i>
+                            <strong>${option.title}</strong>
+                        </div>
+                        <span>${option.description}</span>
+                    </div>
+                </label>
+            </div>
+        `;
+    }
+    
+    // Render checkboxes based on preferences
+    function renderCheckboxes(subscriptionSettings = null) {
+        let html = '';
+        
+        if (subscriptionSettings) {
+            // Show only options that are true in subscription_settings
+            Object.entries(subscriptionSettings).forEach(([key, value]) => {
+                if (value === true && emailPreferenceOptions[key]) {
+                    html += generateCheckboxHTML(key, emailPreferenceOptions[key], true);
+                }
+            });
+        } else {
+            // Show all options if no API response
+            Object.entries(emailPreferenceOptions).forEach(([key, option]) => {
+                html += generateCheckboxHTML(key, option, true);
+            });
+        }
+        
+        checkboxGrid.innerHTML = html;
+        
+        // Update current checkboxes reference
+        currentCheckboxes = document.querySelectorAll('input[name="preferences"]');
+        
+        // Add event listeners to new checkboxes
+        currentCheckboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', updateButtonText);
+        });
+        
+        updateButtonText();
+    }
     
     // Load existing preferences on page load
     async function loadExistingPreferences() {
         const sendId = getUrlParameter('send_id');
         
         if (!sendId) {
-            Logger.debug('No send_id parameter found, using default settings');
             showNotification('No send_id parameter found in URL. Using default settings.', 'info');
+            renderCheckboxes(); // Show all options
             return;
         }
         
-        Logger.debug('Found send_id parameter:', sendId);
-        
         try {
             const requestUrl = `${API_URL}?send_id=${encodeURIComponent(sendId)}`;
-            Logger.debug('Making GET request to:', requestUrl);
             
             const response = await fetch(requestUrl, {
                 method: 'GET',
@@ -158,21 +177,17 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
             
-            Logger.debug('Response status:', response.status);
-            Logger.debug('Response headers:', Object.fromEntries(response.headers.entries()));
-            
             const data = await response.json();
-            Logger.debug('API Response:', data);
             
             if (data.message === 'Invalid ID') {
-                Logger.debug('Invalid ID received, using default settings');
                 showNotification('Link expired or invalid. Using default email preferences.', 'warning');
+                renderCheckboxes(); // Show all options
                 return;
             }
             
             if (data.message === 'Missing ID parameter') {
-                Logger.error('API says missing ID parameter, but we sent:', sendId);
                 showNotification('API configuration issue. Please contact support.', 'error');
+                renderCheckboxes(); // Show all options
                 return;
             }
             
@@ -185,25 +200,18 @@ document.addEventListener('DOMContentLoaded', function() {
                 originalPreferences = { ...data.subscription_settings };
                 preferencesLoaded = true;
                 
-                // Update checkboxes based on subscription settings
-                Object.entries(fieldMapping).forEach(([apiField, checkboxId]) => {
-                    const checkbox = document.getElementById(checkboxId);
-                    if (checkbox && data.subscription_settings.hasOwnProperty(apiField)) {
-                        checkbox.checked = data.subscription_settings[apiField];
-                    }
-                });
+                // Render checkboxes based on subscription settings
+                renderCheckboxes(data.subscription_settings);
                 
-                Logger.success('Preferences loaded successfully');
                 showNotification('Email preferences loaded from your account.', 'info');
-                updateButtonText();
             } else {
-                Logger.error('Unexpected API response format:', data);
                 showNotification('Unexpected response format. Using default settings.', 'warning');
+                renderCheckboxes(); // Show all options
             }
             
         } catch (error) {
-            Logger.error('Error loading preferences:', error);
             showNotification('Error loading your preferences. Using default settings.', 'error');
+            renderCheckboxes(); // Show all options
         }
     }
     
@@ -238,9 +246,17 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Get current checkbox states
         const currentPreferences = {};
-        Object.entries(fieldMapping).forEach(([apiField, checkboxId]) => {
-            const checkbox = document.getElementById(checkboxId);
-            currentPreferences[apiField] = checkbox ? checkbox.checked : false;
+        
+        // Initialize all original preferences as false (unchecked)
+        Object.keys(originalPreferences).forEach(key => {
+            currentPreferences[key] = false;
+        });
+        
+        // Update with currently checked preferences
+        currentCheckboxes.forEach(checkbox => {
+            if (checkbox.checked) {
+                currentPreferences[checkbox.value] = true;
+            }
         });
         
         // Compare with original preferences
@@ -277,7 +293,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         // Update quick action buttons
-        if (checkedBoxes.length === checkboxes.length) {
+        if (checkedBoxes.length === currentCheckboxes.length) {
             selectAllBtn.style.opacity = '0.5';
             selectAllBtn.disabled = true;
             unselectAllBtn.style.opacity = '1';
@@ -295,14 +311,9 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // Add event listeners to checkboxes
-    checkboxes.forEach(checkbox => {
-        checkbox.addEventListener('change', updateButtonText);
-    });
-    
     // Select all button
     selectAllBtn.addEventListener('click', function() {
-        checkboxes.forEach(checkbox => {
+        currentCheckboxes.forEach(checkbox => {
             checkbox.checked = true;
         });
         updateButtonText();
@@ -310,7 +321,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Unselect all button
     unselectAllBtn.addEventListener('click', function() {
-        checkboxes.forEach(checkbox => {
+        currentCheckboxes.forEach(checkbox => {
             checkbox.checked = false;
         });
         updateButtonText();
@@ -328,11 +339,22 @@ document.addEventListener('DOMContentLoaded', function() {
         
         const checkedBoxes = document.querySelectorAll('input[name="preferences"]:checked');
         
-        // Build subscription settings object
-        const subscriptionSettings = {};
-        Object.entries(fieldMapping).forEach(([apiField, checkboxId]) => {
-            const checkbox = document.getElementById(checkboxId);
-            subscriptionSettings[apiField] = checkbox ? checkbox.checked : false;
+        // Build subscription settings object with all required keys
+        // Always include all possible preference keys, defaulting to false
+        const subscription_settings = {
+            'WhatIsPlungePalz': false,
+            'OnboardingAbandoned': false,
+            'ReEngagement': false,
+            'CommunitySocial': false,
+            'AppUpdates': false,
+            'UserMetricsReport': false
+        };
+        
+        // Set checked preferences to true
+        checkedBoxes.forEach(checkbox => {
+            if (subscription_settings.hasOwnProperty(checkbox.value)) {
+                subscription_settings[checkbox.value] = true;
+            }
         });
         
         // Show loading state
@@ -341,21 +363,20 @@ document.addEventListener('DOMContentLoaded', function() {
         submitBtn.disabled = true;
         
         try {
-            Logger.debug('Submitting preferences update:', { email, subscriptionSettings });
+            const requestBody = {
+                email: email,
+                subscription_settings: subscription_settings
+            };
             
             const response = await fetch(API_URL, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({
-                    email: email,
-                    subscription_settings: subscriptionSettings
-                })
+                body: JSON.stringify(requestBody)
             });
             
             const data = await response.json();
-            Logger.debug('Update response:', data);
             
             if (data.message === 'Update Successful') {
                 // Show success message
@@ -383,8 +404,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 form.parentNode.insertBefore(successDiv, form);
                 form.style.display = 'none';
                 
-                Logger.success('Preferences updated successfully');
-                
             } else if (data.message === 'Invalid Email') {
                 showNotification('Email address not found in our system. Please check your email address.', 'error');
                 submitBtn.innerHTML = originalText;
@@ -394,7 +413,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             
         } catch (error) {
-            Logger.error('Error updating preferences:', error);
             showNotification('Error updating your preferences. Please try again.', 'error');
             submitBtn.innerHTML = originalText;
             submitBtn.disabled = false;
@@ -402,7 +420,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     // Initialize page
-    updateButtonText();
     loadExistingPreferences();
 });
 </script>
@@ -508,7 +525,6 @@ document.addEventListener('DOMContentLoaded', function() {
 .checkbox-label {
     display: flex;
     align-items: flex-start;
-    gap: 1rem;
     padding: 1.5rem;
     background: var(--white-primary);
     border: 2px solid var(--blue-tertiary);
@@ -542,7 +558,6 @@ document.addEventListener('DOMContentLoaded', function() {
 .checkbox-label i {
     color: var(--blue-primary);
     font-size: 1.5rem;
-    margin-top: 0.2rem;
     flex-shrink: 0;
 }
 
@@ -550,6 +565,13 @@ document.addEventListener('DOMContentLoaded', function() {
     display: flex;
     flex-direction: column;
     gap: 0.3rem;
+    flex: 1;
+}
+
+.checkbox-content-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
 }
 
 .checkbox-content strong {
