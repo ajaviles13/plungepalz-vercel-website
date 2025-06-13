@@ -233,6 +233,14 @@ app.get('/terms-of-service', (req, res) => {
     });
 });
 
+// Reset Password Page
+app.get('/reset-password', (req, res) => {
+    res.render('reset-password', {
+        title: 'Reset Password - PlungePalz™',
+        page: 'reset-password'
+    });
+});
+
 app.get('/email-unsubscribe', (req, res) => {
     res.render('email-unsubscribe', { 
         title: 'Update Email Preferences - PlungePalz™',
